@@ -12,6 +12,7 @@ import 'package:sizer/sizer.dart';
 class CompatibleType extends StatelessWidget {
   CompatibleType({Key? key}) : super(key: key);
   AppColors colors = AppColors();
+  var snackBar = const SnackBar(content: Text('Choose Blood and place '));
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +84,19 @@ class CompatibleType extends StatelessWidget {
             width: size.width * 0.7,
             height: size.height * 0.05,
             child:
-            Consumer<TypeChangeButtonColor>(builder: (context, colorChange, _) {
+            Consumer<ChangeButtonColor>(builder: (context, colorChange, _) {
               return ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+
+                  colorChange.fetchBanksByType();
+                  colorChange.typeSelectedByType && colorChange.placeSelectedByType
+
+                      ? Navigator.pushNamed(context, 'hospitals')
+                      : ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+
+
+                },
                 child: Text(
                   'Search',
                   style: TextStyle(fontSize: size.width * 0.06),
@@ -95,7 +106,7 @@ class CompatibleType extends StatelessWidget {
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15))),
                   backgroundColor: MaterialStateProperty.all(
-                      colorChange.typeSelected && colorChange.placeSelected
+                      colorChange.typeSelectedByType && colorChange.placeSelectedByType
                           ? colors.orange
                           : colors.grey),
                 ),
@@ -111,10 +122,10 @@ class CompatibleType extends StatelessWidget {
   Widget buildInkWell(Size size, String bloodType, context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Consumer<TypeChangeButtonColor>(builder: (context, provider, _) {
+      child: Consumer<ChangeButtonColor>(builder: (context, provider, _) {
         return InkWell(
           onTap: () {
-            provider.selection(bloodType);
+            provider.selectionByType(bloodType);
           },
           child: Stack(
             alignment: Alignment.center,
@@ -123,7 +134,7 @@ class CompatibleType extends StatelessWidget {
                 height: size.height * 0.1,
                 width: size.width * 0.2,
                 decoration: BoxDecoration(
-                  color: provider.selected == bloodType
+                  color: provider.selectedByType == bloodType
                       ? colors.orange
                       : colors.grey,
                   borderRadius: BorderRadius.circular(10),
@@ -133,7 +144,7 @@ class CompatibleType extends StatelessWidget {
                 bloodType,
                 style: TextStyle(
                     fontSize: size.width * 0.09,
-                    color: provider.selected == bloodType
+                    color: provider.selectedByType == bloodType
                         ? colors.white
                         : colors.black),
               ),
@@ -178,8 +189,9 @@ class CompatibleType extends StatelessWidget {
               fontSize: MediaQuery.of(ctx).size.width * 0.045,
             )),
         radioButtonValue: (value) {
+          Provider.of<ChangeButtonColor>(ctx,listen: false).location= value as String;
 
-          Provider.of<TypeChangeButtonColor>(ctx,listen: false).place();
+          Provider.of<ChangeButtonColor>(ctx,listen: false).placeByType();
         },
         selectedColor: colors.orange);
   }

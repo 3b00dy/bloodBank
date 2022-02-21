@@ -7,8 +7,8 @@ import 'package:bankblood/provider/authentication.dart';
 import 'package:bankblood/provider/search_type_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -20,7 +20,7 @@ import 'package:provider/provider.dart';
 import 'pages/donation.dart';
 import 'pages/login.dart';
 import 'pages/register.dart';
-import 'provider/test.dart';
+import 'provider/volunteer_provider.dart';
 
 const Locale arLocale = Locale('ar');
 const Locale enLocale = Locale('en');
@@ -50,7 +50,7 @@ void main() async {
           create: (typeColor) => TypeChangeButtonColor(),
         ),
         ChangeNotifierProvider(
-          create: (test) => Auth(),
+          create: (test) => VolunteerProvider(),
         ), ChangeNotifierProvider(
           create: (auth) => Authentication(),
         ),

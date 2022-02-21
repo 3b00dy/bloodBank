@@ -2,6 +2,7 @@
 
 import 'package:bankblood/colors.dart';
 import 'package:bankblood/provider/search_type_color.dart';
+import 'package:bankblood/provider/volunteer_provider.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class BasicSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   var snackBar= SnackBar(content: Text('Choose Blood and place '));
+    var snackBar = SnackBar(content: Text('Choose Blood and place '));
 
     var size = MediaQuery.of(context).size;
     return Scaffold(
@@ -61,7 +62,8 @@ class BasicSearch extends StatelessWidget {
             ],
           ),
           buildSizedBoxFoSpaces(size, 0.03, 0.0),
-          Row(mainAxisAlignment: MainAxisAlignment.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               buildInkWell(size, 'A+', context),
               buildInkWell(size, 'B+', context),
@@ -70,7 +72,8 @@ class BasicSearch extends StatelessWidget {
             ],
           ),
           Row(
-mainAxisAlignment: MainAxisAlignment.center,              children: [
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               buildInkWell(size, 'A-', context),
               buildInkWell(size, 'B-', context),
               buildInkWell(size, 'AB-', context),
@@ -85,10 +88,11 @@ mainAxisAlignment: MainAxisAlignment.center,              children: [
                 Consumer<ChangeButtonColor>(builder: (context, colorChange, _) {
               return ElevatedButton(
                 onPressed: () {
-                  colorChange.typeSelected && colorChange.placeSelected?
-                  Navigator.pushNamed(context, 'hospitals'):
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+               colorChange.fetchBanks();
+                  colorChange.typeSelected && colorChange.placeSelected
 
+                      ? Navigator.pushNamed(context, 'hospitals')
+                      : ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
                 child: Text(
                   'Search',
@@ -106,9 +110,12 @@ mainAxisAlignment: MainAxisAlignment.center,              children: [
               );
             }),
           ),
-          TextButton(onPressed: (){
-            Navigator.pushNamed(context, 'search_compatible');
-          }, child: const Text('Search by Compatible type'),),
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'search_compatible');
+            },
+            child: const Text('Search by Compatible type'),
+          ),
         ],
       ),
     );
@@ -185,7 +192,10 @@ mainAxisAlignment: MainAxisAlignment.center,              children: [
               fontSize: MediaQuery.of(ctx).size.width * 0.045,
             )),
         radioButtonValue: (value) {
-          Provider.of<ChangeButtonColor>(ctx,listen: false).place();
+          debugPrint('valuee $value');
+          Provider.of<ChangeButtonColor>(ctx, listen: false).location=value as String;
+
+          Provider.of<ChangeButtonColor>(ctx, listen: false).place();
         },
         selectedColor: colors.orange);
   }

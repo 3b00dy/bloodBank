@@ -1,5 +1,6 @@
 import 'package:bankblood/colors.dart';
-import 'package:bankblood/provider/test.dart';
+import 'package:bankblood/provider/search_type_color.dart';
+import 'package:bankblood/provider/volunteer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,11 +22,11 @@ class Hospitals extends StatelessWidget {
           SizedBox(
             height: size.height * 0.035,
           ),
-          Consumer<Auth>(builder: (context, hospitals, _) {
-            return Container(
+          Consumer<ChangeButtonColor>(builder: (context, hospitals, _) {
+            return SizedBox(
               height: size.height * 0.85,
               child: ListView.builder(
-                itemCount: hospitals.hospitalsList.length,
+                itemCount: hospitals.hospitalsList!.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(
@@ -41,7 +42,7 @@ class Hospitals extends StatelessWidget {
                           buildAlertDialog(size, context, index);
                         },
                         title: Text(
-                            'Hospital Name: ${hospitals.hospitalsList[index].name}'),
+                            'Hospital Name: ${hospitals.hospitalsList![index].hospitalName}'),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -49,9 +50,9 @@ class Hospitals extends StatelessWidget {
                               height: size.height * 0.022,
                             ),
                             Text(
-                                'Address: ${hospitals.hospitalsList[index].address}'),
+                                'Address: ${hospitals.hospitalsList![index].hospitalAddress}'),
                             Text(
-                                'Available Bottles: ${hospitals.hospitalsList[index].availableBottles}'),
+                                'Available Bottles: ${hospitals.hospitalsList![index].availableBottles}'),
                           ],
                         ),
                         trailing: Stack(
@@ -66,7 +67,7 @@ class Hospitals extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              hospitals.hospitalsList[index].bloodType,
+                              '${hospitals.hospitalsList![index].bloodType}',
                               style: TextStyle(fontSize: size.width * 0.06),
                             ),
                           ],
@@ -101,7 +102,7 @@ class Hospitals extends StatelessWidget {
         ),
         content: SizedBox(
           height: size.height*0.2  ,
-          child: Consumer<Auth>(builder: (context, hospitals, _) {
+          child: Consumer<ChangeButtonColor>(builder: (context, hospitals, _) {
             return Column(
               children: [
                 SizedBox(
@@ -111,11 +112,11 @@ class Hospitals extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              'Address: ${hospitals.hospitalsList[index].address}'),
+                              'Address: ${hospitals.hospitalsList![index].hospitalAddress}'),
                           Text(
-                              'Available Bottles: ${hospitals.hospitalsList[index].availableBottles}'),
+                              'Available Bottles: ${hospitals.hospitalsList![index].availableBottles}'),
                           Text(
-                              'Phone number: ${hospitals.hospitalsList[index].phoneNumber}'),
+                              'Phone number: ${hospitals.hospitalsList![index].hospitalNumber}'),
                         ],
                       ),
                       Expanded(
@@ -134,7 +135,7 @@ class Hospitals extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  hospitals.hospitalsList[index].bloodType,
+                                  '${hospitals.hospitalsList![index].bloodType}',
                                   style: TextStyle(fontSize: size.width * 0.06),
                                 ),
                               ],

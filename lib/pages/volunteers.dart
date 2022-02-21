@@ -1,5 +1,6 @@
 import 'package:bankblood/colors.dart';
-import 'package:bankblood/provider/test.dart';
+import 'package:bankblood/provider/volunteer_provider.dart';
+import 'package:bankblood/provider/volunteer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class Volunteers extends StatelessWidget {
           SizedBox(
             height: size.height * 0.025,
           ),
-          Consumer<Auth>(builder: (context, hospitals, _) {
+          Consumer<VolunteerProvider>(builder: (context, hospitals, _) {
             return Container(
               height: size.height * 0.78,
               child: ListView.builder(
@@ -37,7 +38,7 @@ class Volunteers extends StatelessWidget {
                           buildAlertDialog(size, context, index);
                         },
                         title: Text(
-                            'Name: ${hospitals.volList[index].name}'),
+                            'Name: ${hospitals.volList[index].volunteerName}'),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -45,9 +46,9 @@ class Volunteers extends StatelessWidget {
                               height: size.height * 0.022,
                             ),
                             Text(
-                                'Address: ${hospitals.volList[index].address}'),
+                                'Address: ${hospitals.volList[index].volunteerAddress}'),
                             Text(
-                                'Age : ${hospitals.volList[index].age}'),
+                                'Age : ${hospitals.volList[index].volunteerAge}'),
                           ],
                         ),
                         trailing: Stack(
@@ -62,7 +63,7 @@ class Volunteers extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              hospitals.volList[index].bloodType,
+                              '${hospitals.volList[index].volunteerBloodType}',
                               style: TextStyle(fontSize: size.width * 0.06),
                             ),
                           ],
@@ -97,7 +98,7 @@ class Volunteers extends StatelessWidget {
         ),
         content: SizedBox(
           height: size.height*0.2  ,
-          child: Consumer<Auth>(builder: (context, hospitals, _) {
+          child: Consumer<VolunteerProvider>(builder: (context, hospitals, _) {
             return Column(
               children: [
                 SizedBox(
@@ -107,11 +108,11 @@ class Volunteers extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              'Address: ${hospitals.volList[index].address}'),
+                              'Address: ${hospitals.volList[index].volunteerAddress}'),
                           Text(
-                              'Age: ${hospitals.volList[index].age}'),
+                              'Age: ${hospitals.volList[index].volunteerAge}'),
                           Text(
-                              'Phone number: ${hospitals.volList[index].phoneNumber}'),
+                              'Phone number: ${hospitals.volList[index].volunteerPhoneNumber}'),
                         ],
                       ),
                       Expanded(
@@ -130,7 +131,7 @@ class Volunteers extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  hospitals.volList[index].bloodType,
+                                  '${hospitals.volList[index].volunteerBloodType}',
                                   style: TextStyle(fontSize: size.width * 0.06),
                                 ),
                               ],
