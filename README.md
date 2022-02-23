@@ -1,6 +1,7 @@
 # bankblood
 
 Application helps tho find the nearby bank bloods
+Two Languages (Arabic, English)
 REST API python django
 Video 
 
