@@ -2,8 +2,11 @@ import 'package:bankblood/colors.dart';
 import 'package:bankblood/pages/hospitals_results.dart';
 import 'package:bankblood/pages/search_by_type.dart';
 import 'package:bankblood/pages/splash.dart';
+import 'package:bankblood/pages/volunteers.dart';
 import 'package:bankblood/provider/TypeChangeButtonColor.dart';
+import 'package:bankblood/provider/add_volunteer.dart';
 import 'package:bankblood/provider/authentication.dart';
+import 'package:bankblood/provider/language_viewModel.dart';
 import 'package:bankblood/provider/search_type_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -54,25 +57,32 @@ void main() async {
         ), ChangeNotifierProvider(
           create: (auth) => Authentication(),
         ),
+        ChangeNotifierProvider(
+          create: (add) => AddVolunteerProvider(),
+        ),   ChangeNotifierProvider(
+          create: (color) => AppColors(),
+        ),  ChangeNotifierProvider(
+          create: (language) => AppViewModel(),
+        ),
       ],
-      child: const MyApp(),
+      child:  Consumer<AppViewModel>(builder: (context, viewModel, child) {
+
+        return MyApp(viewModel.appLocale);
+      }),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+class MyApp extends StatelessWidget {
+  MyApp(this.currentLocate,{Key? key}) : super(key: key);
 
-class _MyAppState extends State<MyApp> {
   List<Locale> get supportedLocales => [
-        arLocale,
-        enLocale,
-      ];
+    enLocale,
+    arLocale,
 
+      ];
+  final Locale currentLocate;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -80,7 +90,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
           primaryColor: AppColors().orange,
           appBarTheme: AppBarTheme(color: AppColors().orange),
-          fontFamily: 'Roboto'),
+          fontFamily: currentLocate==arLocale?'Tajawal':'Roboto'),
 
       initialRoute: '/',
 
@@ -92,6 +102,7 @@ class _MyAppState extends State<MyApp> {
         'donate': (context) => Donate(),
         'register': (context) => Register(),
         'login': (context) => Login(),
+        'volunteer': (context) => Volunteers(),
       },
       localizationsDelegates: const [
         AlphaStoreLocalizationDelegate(),
@@ -100,7 +111,7 @@ class _MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: supportedLocales,
-      locale: enLocale,
+      locale: currentLocate,
     );
   }
 }

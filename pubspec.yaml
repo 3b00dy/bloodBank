@@ -93,6 +93,13 @@ flutter:
        - asset: assets/fonts/Roboto-Regular.ttf
        - asset: assets/fonts/Roboto-Bold.ttf
 
+   - family: Tajawal
+     fonts:
+       - asset: assets/fonts/Tajawal-Regular.ttf
+#       - asset: assets/fonts/Roboto-Bold.ttf
+
+#        - asset: assets/fonts/Roboto-Bold.ttf
+
 #           style: italic
 #     - family: Trajan Pro
   #     fonts:

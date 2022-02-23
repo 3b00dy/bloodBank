@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:bankblood/colors.dart';
+import 'package:bankblood/i18n/translations.dart';
 import 'package:bankblood/provider/search_type_color.dart';
 import 'package:bankblood/provider/volunteer_provider.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
@@ -18,17 +19,20 @@ class BasicSearch extends StatelessWidget {
     var snackBar = SnackBar(content: Text('Choose Blood and place '));
 
     var size = MediaQuery.of(context).size;
+
+    var translation=Translations.of(context);
     return Scaffold(
+      backgroundColor: Provider.of<AppColors>(context).white,
       body: Column(
         children: [
           buildSizedBoxFoSpaces(size, 0.03, 0),
           Padding(
-            padding: EdgeInsets.only(left: 14.0),
+            padding: EdgeInsets.only(left: 14.0,right: 14.0 ),
             child: Row(
               children: [
                 Text(
-                  'Search for bank blood',
-                  style: TextStyle(fontSize: size.width * 0.07),
+                  translation.searchForBankBlood,
+                  style: TextStyle(fontSize: size.width * 0.07,color: Provider.of<AppColors>(context).black),
                 ),
               ],
             ),
@@ -38,13 +42,13 @@ class BasicSearch extends StatelessWidget {
             children: [
               buildSizedBoxFoSpaces(size, 0, 0.04),
               Text(
-                'Choose:',
-                style: TextStyle(fontSize: size.width * 0.06),
+                translation.choose,
+                style: TextStyle(fontSize: size.width * 0.06,color: Provider.of<AppColors>(context).black),
               ),
               buildSizedBoxFoSpaces(size, 0, 0.05),
               Container(
                   decoration: BoxDecoration(
-                    color: colors.grey,
+                    color: Provider.of<AppColors>(context).grey,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: customRadio(context)),
@@ -55,8 +59,8 @@ class BasicSearch extends StatelessWidget {
             children: [
               buildSizedBoxFoSpaces(size, 0, 0.04),
               Text(
-                'Choose blood type',
-                style: TextStyle(fontSize: size.width * 0.06),
+                translation.chooseBloodType,
+                style: TextStyle(fontSize: size.width * 0.06,color: Provider.of<AppColors>(context).black ),
               ),
               buildSizedBoxFoSpaces(size, 0, 0.05),
             ],
@@ -65,19 +69,19 @@ class BasicSearch extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              buildInkWell(size, 'A+', context),
-              buildInkWell(size, 'B+', context),
-              buildInkWell(size, 'AB+', context),
-              buildInkWell(size, 'O+', context),
+              buildInkWell(size, 'A+', context,translation.aPlus),
+              buildInkWell(size, 'B+', context,translation.bPlus),
+              buildInkWell(size, 'AB+', context,translation.abPlus),
+              buildInkWell(size, 'O+', context,translation.oPlus),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              buildInkWell(size, 'A-', context),
-              buildInkWell(size, 'B-', context),
-              buildInkWell(size, 'AB-', context),
-              buildInkWell(size, 'O-', context),
+              buildInkWell(size, 'A-', context,translation.aMinus),
+              buildInkWell(size, 'B-', context,translation.bMinus),
+              buildInkWell(size, 'AB-', context,translation.abMinus),
+              buildInkWell(size, 'O-', context,translation.oMinus),
             ],
           ),
           buildSizedBoxFoSpaces(size, 0.08, 0),
@@ -95,7 +99,7 @@ class BasicSearch extends StatelessWidget {
                       : ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
                 child: Text(
-                  'Search',
+                  translation.search,
                   style: TextStyle(fontSize: size.width * 0.06),
                 ),
                 style: ButtonStyle(
@@ -104,8 +108,8 @@ class BasicSearch extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15))),
                   backgroundColor: MaterialStateProperty.all(
                       colorChange.typeSelected && colorChange.placeSelected
-                          ? colors.orange
-                          : colors.grey),
+                          ? Provider.of<AppColors>(context).orange
+                          : Provider.of<AppColors>(context).grey),
                 ),
               );
             }),
@@ -114,14 +118,14 @@ class BasicSearch extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, 'search_compatible');
             },
-            child: const Text('Search by Compatible type'),
+            child:  Text(translation.searchByCompatibleTypes),
           ),
         ],
       ),
     );
   }
 
-  Widget buildInkWell(Size size, String bloodType, context) {
+  Widget buildInkWell(Size size, String bloodType, context,bloodTypeText) {
     var provider = Provider.of<ChangeButtonColor>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -138,18 +142,18 @@ class BasicSearch extends StatelessWidget {
                 width: size.width * 0.2,
                 decoration: BoxDecoration(
                   color: provider.selected == bloodType
-                      ? colors.orange
-                      : colors.grey,
+                      ? Provider.of<AppColors>(context).orange
+                      : Provider.of<AppColors>(context).grey,
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               Text(
-                bloodType,
+                bloodTypeText,
                 style: TextStyle(
                     fontSize: size.width * 0.09,
                     color: provider.selected == bloodType
-                        ? colors.white
-                        : colors.black),
+                        ? Provider.of<AppColors>(context).white
+                        : Provider.of<AppColors>(context).black),
               ),
             ],
           ),
@@ -172,22 +176,22 @@ class BasicSearch extends StatelessWidget {
         // padding: 10,
         shapeRadius: 10,
         radius: 8,
-        unSelectedBorderColor: colors.grey,
-        selectedBorderColor: colors.orange,
+        unSelectedBorderColor: Provider.of<AppColors>(ctx).grey,
+        selectedBorderColor: Provider.of<AppColors>(ctx).orange,
         elevation: 0,
         absoluteZeroSpacing: false,
-        unSelectedColor: colors.grey,
-        buttonLables: const [
-          'Karekh',
-          'Rassafa',
+        unSelectedColor: Provider.of<AppColors>(ctx).grey,
+        buttonLables:  [
+          Translations.of(ctx).karekh,
+          Translations.of(ctx).rassafa,
         ],
         buttonValues: const [
           "Karekh",
           "Rassafa",
         ],
         buttonTextStyle: ButtonTextStyle(
-            selectedColor: Colors.white,
-            unSelectedColor: colors.black,
+            selectedColor: Provider.of<AppColors>(ctx).white,
+            unSelectedColor: Provider.of<AppColors>(ctx).black,
             textStyle: TextStyle(
               fontSize: MediaQuery.of(ctx).size.width * 0.045,
             )),
@@ -197,7 +201,7 @@ class BasicSearch extends StatelessWidget {
 
           Provider.of<ChangeButtonColor>(ctx, listen: false).place();
         },
-        selectedColor: colors.orange);
+        selectedColor: Provider.of<AppColors>(ctx).orange);
   }
 }
 //5+3

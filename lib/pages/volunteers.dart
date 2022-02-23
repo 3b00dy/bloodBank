@@ -1,4 +1,5 @@
 import 'package:bankblood/colors.dart';
+import 'package:bankblood/i18n/translations.dart';
 import 'package:bankblood/provider/volunteer_provider.dart';
 import 'package:bankblood/provider/volunteer_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,10 @@ class Volunteers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var translation=Translations.of(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-
+backgroundColor: Provider.of<AppColors>(context).white,
       body: Column(
         children: [
           SizedBox(
@@ -28,9 +30,9 @@ class Volunteers extends StatelessWidget {
                     padding: const EdgeInsets.only(
                         top: 13.0, left: 13.0, right: 13.0),
                     child: Container(
-                      height: size.height * 0.12,
+                      height: size.height * 0.14,
                       decoration: BoxDecoration(
-                        color: _colors.greys,
+                        color: Provider.of<AppColors>(context).greys,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: ListTile(
@@ -38,7 +40,9 @@ class Volunteers extends StatelessWidget {
                           buildAlertDialog(size, context, index);
                         },
                         title: Text(
-                            'Name: ${hospitals.volList[index].volunteerName}'),
+                            '${translation.name} ${hospitals.volList[index].volunteerName}'
+
+                        ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -46,9 +50,9 @@ class Volunteers extends StatelessWidget {
                               height: size.height * 0.022,
                             ),
                             Text(
-                                'Address: ${hospitals.volList[index].volunteerAddress}'),
+                                '${translation.address} ${hospitals.volList[index].volunteerAddress}'),
                             Text(
-                                'Age : ${hospitals.volList[index].volunteerAge}'),
+                                '${translation.age} ${hospitals.volList[index].volunteerAge}'),
                           ],
                         ),
                         trailing: Stack(
@@ -84,10 +88,10 @@ class Volunteers extends StatelessWidget {
     AlertDialog alert = AlertDialog(
         title: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+             Padding(
+              padding:const EdgeInsets.all(8.0),
               child: Text(
-                "Do you want to call?",
+                Translations.of(context).doYouWantToCall ,
               ),
             ),
             Divider(
@@ -97,22 +101,22 @@ class Volunteers extends StatelessWidget {
           ],
         ),
         content: SizedBox(
-          height: size.height*0.2  ,
+          height: size.height*0.25  ,
           child: Consumer<VolunteerProvider>(builder: (context, hospitals, _) {
             return Column(
               children: [
                 SizedBox(
-                    height: size.height * 0.1,
+                    height: size.height * 0.14,
                     child: Row(children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              'Address: ${hospitals.volList[index].volunteerAddress}'),
+                              '${Translations.of(context).address} ${hospitals.volList[index].volunteerAddress}'),
                           Text(
-                              'Age: ${hospitals.volList[index].volunteerAge}'),
+                              '${Translations.of(context).age}  ${hospitals.volList[index].volunteerAge}'),
                           Text(
-                              'Phone number: ${hospitals.volList[index].volunteerPhoneNumber}'),
+                              '${Translations.of(context).phoneNumber}  ${hospitals.volList[index].volunteerPhoneNumber}'),
                         ],
                       ),
                       Expanded(
@@ -142,13 +146,13 @@ class Volunteers extends StatelessWidget {
                     ])),
                 Row(
                   children: [
-                    buildElevatedButton(context, size, _colors.grey, 'Cancel'),
+                    buildElevatedButton(context, size, _colors.grey, Translations.of(context).cancel),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
                           width: size.width * 0.36,
                           child: buildElevatedButton(
-                              context, size, _colors.black, 'Call')),
+                              context, size, _colors.black,Translations.of(context).call)),
                     )
                   ],
                 )

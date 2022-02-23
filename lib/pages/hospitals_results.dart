@@ -1,4 +1,5 @@
 import 'package:bankblood/colors.dart';
+import 'package:bankblood/i18n/translations.dart';
 import 'package:bankblood/provider/search_type_color.dart';
 import 'package:bankblood/provider/volunteer_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,14 @@ class Hospitals extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var translation=Translations.of(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Provider.of<AppColors>(context).white,
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: const Text("Results"),
+        title:  Text(translation.result),
       ),
       body: Column(
         children: [
@@ -32,7 +35,7 @@ class Hospitals extends StatelessWidget {
                     padding: const EdgeInsets.only(
                         top: 13.0, left: 13.0, right: 13.0),
                     child: Container(
-                      height: size.height * 0.12,
+                      height: size.height * 0.15,
                       decoration: BoxDecoration(
                         color: _colors.greys,
                         borderRadius: BorderRadius.circular(10),
@@ -42,7 +45,7 @@ class Hospitals extends StatelessWidget {
                           buildAlertDialog(size, context, index);
                         },
                         title: Text(
-                            'Hospital Name: ${hospitals.hospitalsList![index].hospitalName}'),
+                            '${translation.hospitalName}: ${hospitals.hospitalsList![index].hospitalName}'),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -50,9 +53,9 @@ class Hospitals extends StatelessWidget {
                               height: size.height * 0.022,
                             ),
                             Text(
-                                'Address: ${hospitals.hospitalsList![index].hospitalAddress}'),
+                                '${translation.address}: ${hospitals.hospitalsList![index].hospitalAddress}'),
                             Text(
-                                'Available Bottles: ${hospitals.hospitalsList![index].availableBottles}'),
+                                '${translation.availableBottles}: ${hospitals.hospitalsList![index].availableBottles}'),
                           ],
                         ),
                         trailing: Stack(
@@ -85,13 +88,14 @@ class Hospitals extends StatelessWidget {
   }
 
   void buildAlertDialog(Size size, BuildContext context, index) {
+    var translation=Translations.of(context);
     AlertDialog alert = AlertDialog(
         title: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+             Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Do you want to call?",
+                translation.doYouWantToCall,
               ),
             ),
             Divider(
@@ -101,58 +105,66 @@ class Hospitals extends StatelessWidget {
           ],
         ),
         content: SizedBox(
-          height: size.height*0.2  ,
+          height: size.height*0.3 ,
           child: Consumer<ChangeButtonColor>(builder: (context, hospitals, _) {
             return Column(
               children: [
                 SizedBox(
-                    height: size.height * 0.1,
+                    height: size.height * 0.20,
+                    width: size.width*0.9,
                     child: Row(children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Flexible(
+                            child: Text(
+                                '${translation.address}: ${hospitals.hospitalsList![index].hospitalAddress}'),
+                          ),
                           Text(
-                              'Address: ${hospitals.hospitalsList![index].hospitalAddress}'),
+                              '${translation.availableBottles} ${hospitals.hospitalsList![index].availableBottles}'),
                           Text(
-                              'Available Bottles: ${hospitals.hospitalsList![index].availableBottles}'),
+                              '${translation.phoneNumber} ${hospitals.hospitalsList![index].hospitalNumber}'),
                           Text(
-                              'Phone number: ${hospitals.hospitalsList![index].hospitalNumber}'),
+                            '${hospitals.hospitalsList![index].bloodType}',
+                            style: TextStyle(fontSize: size.width * 0.06),
+                          ),
                         ],
                       ),
-                      Expanded(
-                        child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Container(
-                                  height: size.height * 0.06,
-                                  width: size.width * 0.13,
-                                  decoration: BoxDecoration(
-                                    color: _colors.pink,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                                Text(
-                                  '${hospitals.hospitalsList![index].bloodType}',
-                                  style: TextStyle(fontSize: size.width * 0.06),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      )
+
+                      // Expanded(
+                      //   child: Column(
+                      //     // mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Stack(
+                      //         alignment: Alignment.center,
+                      //         children: [
+                      //           Container(
+                      //             height: size.height * 0.06,
+                      //             width: size.width * 0.13,
+                      //             decoration: BoxDecoration(
+                      //               color: _colors.pink,
+                      //               borderRadius: BorderRadius.circular(8),
+                      //             ),
+                      //           ),
+                      //           Text(
+                      //             '${hospitals.hospitalsList![index].bloodType}',
+                      //             style: TextStyle(fontSize: size.width * 0.06),
+                      //           ),
+                      //         ],
+                      //       )
+                      //     ],
+                      //   ),
+                      // )
                     ])),
                 Row(
                   children: [
-                    buildElevatedButton(context, size, _colors.grey, 'Cancel'),
+                    buildElevatedButton(context, size, _colors.grey, translation.cancel),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
                           width: size.width * 0.36,
                           child: buildElevatedButton(
-                              context, size, _colors.black, 'Call')),
+                              context, size, _colors.black, translation.call)),
                     )
                   ],
                 )

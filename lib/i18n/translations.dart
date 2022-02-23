@@ -17,32 +17,51 @@ class Translations {
   static final Map<String, Map<String, String>> _localizedValues = {
     'en': {
       'switch_language': 'Switch Language',
-      'msg_please_enter_all_fields': 'Please enter all required fields',
-      'two_hours': 'hours',
-      'hour': 'hour',
-      'hours': 'hours',
-      'msg_will_close_restaurant_hours': 'Will close the restaurant for',
-      'msg_close_restaurant_hours': 'How many hours would you like to close the restaurant?',
-      'about_app': 'About',
-      'msg_please_enter_text': 'Please type the note...',
-      'notes': 'Notes',
-      'send': 'Send',
-      'msg_complaints_and_suggestions': 'If you have any feedback, complaints, or suggestions, please type it here',
-      'complaints_and_suggestions': 'Complaints and Suggestions',
-      'notifications_history': 'Notifications',
-      'msg_logout_confirmation': 'Are you sure you want to logout?',
-      'msg_all_dishes_enabled': 'All dishes are enabled',
-      'msg_rest_is_opened': 'Restaurant is open now',
-      'msg_rest_is_closed': 'Restaurant is closed',
-      'msg_rest_closed_open_it': 'Restaurant is closed. Would you like to open it?',
-      'enter_closing_hours_here': 'For how many hours do you want to close the restaurant?',
-      'msg_close_restaurant': 'Restaurant is open, do you want to close it?',
-      'msg_open_restaurant': 'Restaurant is closed, do you want to open it?',
-      'close_restaurant': 'Close Restaurant',
-      'open_restaurant': 'Open Restaurant',
-      'previous_orders': 'Previous Orders',
+      'Home': 'Home',
+      'search_for_bank_blood': 'Search for bank blood',
+      'choose': 'Choose',
+      'choose_blood_type': 'Choose Blood Type',
+      'search': 'Search',
+      'Search_by_compatible_type': 'Search by compatible type',
+      'volunteers': 'Volunteers',
+      'Name': 'Name: ',
+      'address': 'Address:',
+      'age': 'Age',
+      'donate': 'Donate',
+      'full_name': 'Full name',
+      'donor_name': 'Donor Name',
+      'donor_age': 'Donor Age',
+      'donor_address': 'Donor Address',
+      'phone_number': 'Phone Number',
+      'Donor_blood_type': 'Donor Blood Type',
+      'Sign_as_volunteer': 'Sign as a volunteer',
+      'hospital_name': 'Hospital Name',
+      'available_bottles': 'Available Bottles',
+      'result': 'Results',
+      'language': 'Language',
+      'account_info': 'Account Information',
+      'dark_mode': 'Dark Mode',
       'logout': 'Logout',
-      'request_driver': 'Request a Driver',
+      'settings': 'Settings',
+      'account_information': 'Account Information',
+      'karekh': 'Karekh',
+      'rassafa': 'Rassafa',
+      'a+': 'A+',
+      'a-': 'A-',
+      'ab+': 'AB+',
+      'ab-': 'AB-',
+      'b+': 'B+',
+      'b-': 'B-',
+      'o+': 'O+',
+      'o-': 'O-',
+      'call': 'Call',
+      'cancel': 'Cancel',
+      'do_you_want_to_call': 'Do you want to call?',
+      'help_to_save_millions_by_donating_blood': 'Help to save millions by donating blood',
+      'donorPhoneNumber': 'Donor Phone Number',
+      'compatible_types': 'Compatible Types',
+
+
       'cancel_order': 'Cancel Order',
       'back': 'Back',
       'msg_cancel_order': 'Will cancel order?',
@@ -60,10 +79,10 @@ class Translations {
       'verify': 'Verify',
       'proceed': 'Proceed',
       'pin': 'PIN',
-      'name': 'Restaurant Name',
+      // 'name': 'Restaurant Name',
       'mobile_number': 'Mobile Number',
       'ok': 'Ok',
-      'cancel': 'Cancel',
+      // 'cancel': 'Cancel',
       'location_permission_required': 'Location Required',
       'msg_location_permission_required': 'Too access all of the app\'s features, consider granting GPS permissions',
       'confirm_order': 'Confirm Order',
@@ -83,218 +102,198 @@ class Translations {
       'msg_error_loading_content': 'Error Loading Content!',
       'empty': 'Empty content',
       'app_name': 'Talabatey Partner',
+
     },
     'ar': {
       'switch_language': 'تغيير اللغة',
-      'msg_please_enter_all_fields': 'يرجى كتابة كافة الحقول',
-      'two_hours': 'ساعتين',
-      'hour': 'ساعة',
-      'hours': 'ساعات',
-      'msg_will_close_restaurant_hours': 'سيتم إغلاق المطعم لمدة',
-      'msg_close_restaurant_hours': 'يرجى تحديد عدد ساعات إغلاق المطعم',
-      'about_app': 'حول التطبيق',
-      'msg_please_enter_text': 'يرجى كتابة الملاحظة...',
-      'notes': 'الملاحظات',
-      'send': 'إرسال',
-      'msg_complaints_and_suggestions': 'يرجى كتابة الملاحظات ، أو الشكاوي والإقتراحات هنا',
-      'complaints_and_suggestions': 'الشكاوي والإقتراحات',
-      'notifications_history': 'الإشعارات',
-      'msg_logout_confirmation': 'متأكد من تسجيل الخروج؟',
-      'msg_all_dishes_enabled': 'لا توجد أطباق متوقفة',
-      'msg_rest_is_opened': 'المطعم مفتوح الآن',
-      'msg_rest_is_closed': 'تم إغلاق المطعم',
-      'msg_rest_closed_open_it': 'المطعم مغلق. هل تريد فتح المطعم؟',
-      'enter_closing_hours_here': 'كم ساعة تريد اغلاق المطعم؟',
-      'msg_close_restaurant': 'المطعم مفتوح، هل تريد إغلاقه؟',
-      'msg_open_restaurant': 'المطعم مغلق، هل تريد فتحة؟',
-      'close_restaurant': 'غلق المطعم',
-      'open_restaurant': 'فتح المطعم',
-      'previous_orders': 'طلبات سابقة',
+      'Home': 'الصفحة الرئيسية',
+      'search_for_bank_blood': 'بحث عن مصرف دم',
+      'choose': 'اختر',
+      'choose_blood_type': 'اختر فصيلة الدم',
+      'search': 'بحث',
+      'Search_by_compatible_type': 'بحث عن طريق الفصيلة المتوافقة',
+      'volunteers': 'المتبرعين',
+      'Name': 'الأسم: ',
+      'address': 'العنوان:',
+      'age': 'العمر:',
+      'donate': 'تبرع',
+      'full_name': 'الأسم الكامل',
+      'donor_name': 'اسم المتبرع',
+      'donor_age': 'عمر المتبرع',
+      'donor_address': 'عنوان المتبرع',
+      'phone_number': 'رقم الموبايل',
+      'Donor_blood_type': 'فصيلة دم المتبرع',
+      'Sign_as_volunteer': 'سجل كـمتبرع',
+      'hospital_name': 'أسم المستشفى',
+      'available_bottles': 'عدد الأكياس المتاحة',
+      'result': 'النتائج',
+      'language': 'اللغة',
+      'account_info': 'معلومات الحساب',
+      'dark_mode': 'الوضع المظلم',
       'logout': 'تسجيل الخروج',
-      'request_driver': 'إستدعاء سائق',
-      'cancel_order': 'إلغاء الطلب',
-      'back': 'رجوع',
-      'msg_cancel_order': 'سوف يتم إلغاء الطلب',
-      'order_now': 'أطلب الآن',
-      'nearest_location': 'أقرب نقطة دالّة',
-      'customer_mobile_number': 'رقم موبايل الزبون',
-      'customer_name': 'إسم الزبون',
-      'order_total': 'مجموع الطلب',
-      'review_order': 'مراجعة الطلب',
-      'msg_enter_pin_code_from_sms': 'يرجى إدخال الرمز الذي تم إرساله إليك عن طريق الـ SMS',
-      'the_restaurant': 'مطعم',
-      'msg_enter_mobile_name': 'يرجى إدخال رقم الموبايل',
-      'msg_enter_restaurant_name': 'يرجى إدخال إسم المطعم',
-      'msg_enter_pin_code': 'يرجى إدخال الرمز صحيحاً',
-      'verify': 'تأكيد',
-      'proceed': 'متابعة',
-      'pin': 'الرمز من الرسالة التي وصلتك',
-      'name': 'إسم المطعم',
-      'mobile_number': 'رقم الموبايل',
-      'ok': 'موافق',
-      'cancel': 'إلغاء',
-      'location_permission_required': 'السماح للموقع',
-      'msg_location_permission_required': 'للحصول على كافه ميزات وعروض التطبيق ، الرجاء السماح باستخدام خدمات المواقع GPS',
-      'confirm_order': 'تأكيد الطلب',
-      'total_price': 'السعر الكلي',
-      'delivery_cost': 'كلفة التوصيل',
-      'add_to_order': 'إضافة إلى الطلب',
-      'special_notes': 'ملاحظات خاصة',
-      'dish_order_special_instructions': 'إذا كانت لديك أي ملاحظة تخص الطلب ، يرجى كتابتها هنا..',
-      'all_dishes': 'كافة الأطباق',
-      'disabled_dishes': 'أطباق متوقفة',
-      'find_city_name': 'بحث عن مدينة...',
-      'new_order': 'طلبية جديدة',
-      'order': 'طلبية',
-      'more': 'المزيد',
-      'not_found': 'غير موجود!',
-      'food_categories': 'الأصناف',
-      'msg_error_loading_content': 'مشكلة في تنزيل المحتويات!',
-      'empty': 'فارغ',
-      'app_name': 'طلباتي للمطاعم',
+      'settings': 'الأعدادت',
+      'account_information': 'معلومات الحساب',
+      'karekh': 'كرخ',
+      'rassafa': 'رصافة',
+      'a+': '+A',
+      'a-': '-A',
+      'ab+': '+AB',
+      'ab-': '-AB',
+      'b+': '+B',
+      'b-': '-B',
+      'o+': '+O',
+      'o-': '-O',
+      'do_you_want_to_call': 'هل تريد الأتصال؟',
+      'call': 'اتصال',
+      'cancel': 'الغاء',
+      'help_to_save_millions_by_donating_blood': 'تبرع وساهم بأنقاذ حياة الملايين',
+      'donorPhoneNumber': 'رقم هاتف المتبرع',
+      'compatible_types': 'الفصائل المتوافقة',
+
+
     },
   };
 
   String get switchLanguage => _vocabularies?['switch_language'] as String;
 
-  String get msgPleaseEnterAllFields => _vocabularies?['msg_please_enter_all_fields'] as String;
+  String get choose => _vocabularies?['choose'] as String;
 
-  String get twoHours => _vocabularies?['two_hours'] as String;
+  String get chooseBloodType => _vocabularies?['choose_blood_type'] as String;
 
-  String get hour => _vocabularies?['hour'] as String;
+  String get search => _vocabularies?['search'] as String;
 
-  String get hours => _vocabularies?['hours'] as String;
+  String get searchByCompatibleTypes => _vocabularies?['Search_by_compatible_type'] as String;
 
-  String get msgWillCloseRestaurantHours => _vocabularies?['msg_will_close_restaurant_hours'] as String;
+  String get volunteers => _vocabularies?['volunteers'] as String;
 
-  String get msgCloseRestaurantHours => _vocabularies?['msg_close_restaurant_hours'] as String;
+  String get name => _vocabularies?['Name'] as String;
 
-  String get aboutApp => _vocabularies?['about_app'] as String;
+  String get address => _vocabularies?['address'] as String;
 
-  String get msgPleaseEnterText => _vocabularies?['msg_please_enter_text'] as String;
+  String get age => _vocabularies?['age'] as String;
 
-  String get notes => _vocabularies?['notes'] as String;
+  String get donate => _vocabularies?['donate'] as String;
 
-  String get send => _vocabularies?['send'] as String;
+  String get fullName => _vocabularies?['full_name'] as String;
 
-  String get msgComplaintsAndSuggestions => _vocabularies?['msg_complaints_and_suggestions'] as String;
+  String get donorName => _vocabularies?['donor_name'] as String;
 
-  String get complaintsAndSuggestions => _vocabularies?['complaints_and_suggestions'] as String;
+  String get donorAge => _vocabularies?['donor_age'] as String;
 
-  String get notificationsHistory => _vocabularies?['notifications_history'] as String;
+  String get donorAddress => _vocabularies?['donor_address'] as String;
 
-  String get msgLogoutConfirmation => _vocabularies?['msg_logout_confirmation'] as String;
+  String get phoneNumber => _vocabularies?['phone_number'] as String;
 
-  String get msgNoDisabledDishes {
-    return _vocabularies?['msg_all_dishes_enabled'] as String;
+  String get hospitalName {
+    return _vocabularies?['hospital_name'] as String;
   }
 
-  String get msgRestaurantIsOpened {
-    return _vocabularies?['msg_rest_is_opened'] as String;
+  String get donorBloodType {
+    return _vocabularies?['Donor_blood_type'] as String;
   }
 
-  String get msgRestaurantIsClosed {
-    return _vocabularies?['msg_rest_is_closed'] as String;
+  String get signAsVolunteer {
+    return _vocabularies?['Sign_as_volunteer'] as String;
   }
 
-  String get msgRestClosedOpenIt {
-    return _vocabularies?['msg_rest_closed_open_it'] as String;
+  String get availableBottles {
+    return _vocabularies?['available_bottles'] as String;
   }
 
-  String get openRestaurant {
-    return _vocabularies?['open_restaurant'] as String;
+  String get result {
+    return _vocabularies?['result'] as String;
   }
 
-  String get closeRestaurant {
-    return _vocabularies?['close_restaurant'] as String;
+  String get language {
+    return _vocabularies?['language'] as String;
   }
 
-  String get msgOpenRestaurant {
-    return _vocabularies?['msg_open_restaurant'] as String;
-  }
-
-  String get msgCloseRestaurant {
-    return _vocabularies?['msg_close_restaurant'] as String;
-  }
-
-  String get enterClosingHours {
-    return _vocabularies?['enter_closing_hours_here'] as String;
-  }
-
-  String get previousOrders {
-    return _vocabularies?['previous_orders'] as String;
+  String get darkMode {
+    return _vocabularies?['dark_mode'] as String;
   }
 
   String get logout {
     return _vocabularies?['logout'] as String;
   }
 
-  String get openCloseRestaurant {
-    return _vocabularies?['open_close_restaurant'] as String;
+  String get searchForBankBlood {
+    return _vocabularies?['search_for_bank_blood'] as String;
   }
 
-  String get requestDriver {
-    return _vocabularies?['request_driver'] as String;
+  String get home {
+    return _vocabularies?['Home'] as String;
   }
 
-  String get pin {
-    return _vocabularies?['pin'] as String;
+  String get logOut {
+    return _vocabularies?['logout'] as String;
   }
 
-  String get msgCancelOrder {
-    return _vocabularies?['msg_cancel_order'] as String;
+  String get settings {
+    return _vocabularies?['settings'] as String;
   }
 
-  String get back {
-    return _vocabularies?['back'] as String;
+  String get accountInformation {
+    return _vocabularies?['account_information'] as String;
   }
 
-  String get cancelOrder {
-    return _vocabularies?['cancel_order'] as String;
+  String get karekh {
+    return _vocabularies?['karekh'] as String;
   }
 
-  String get orderNow {
-    return _vocabularies?['order_now'] as String;
+  String get rassafa {
+    return _vocabularies?['rassafa'] as String;
   }
 
-  String get customerNearestLocation {
-    return _vocabularies?['nearest_location'] as String;
+  String get aPlus {
+    return _vocabularies?['a+'] as String;
   }
 
-  String get customerMobile {
-    return _vocabularies?['customer_mobile_number'] as String;
+  String get aMinus {
+    return _vocabularies?['a-'] as String;
   }
 
-  String get customerName {
-    return _vocabularies?['customer_name'] as String;
+  String get bPlus {
+    return _vocabularies?['b+'] as String;
   }
 
-  String get orderTotal {
-    return _vocabularies?['order_total'] as String;
+  String get bMinus {
+    return _vocabularies?['b-'] as String;
   }
 
-  String get reviewOrder {
-    return _vocabularies?['review_order'] as String;
+  String get abPlus {
+    return _vocabularies?['ab+'] as String;
   }
 
-  String get msgEnterPinCodeFromSMS {
-    return _vocabularies?['msg_enter_pin_code_from_sms'] as String;
+  String get abMinus {
+    return _vocabularies?['ab-'] as String;
   }
 
-  String get theRestaurant {
-    return _vocabularies?['the_restaurant'] as String;
+  String get oPlus {
+    return _vocabularies?['o-'] as String;
   }
 
-  String get msgEnterMobileNumber {
-    return _vocabularies?['msg_enter_mobile_name'] as String;
+  String get oMinus {
+    return _vocabularies?['o-'] as String;
   }
 
-  String get msgEnterRestaurantName {
-    return _vocabularies?['msg_enter_restaurant_name'] as String;
+  String get doYouWantToCall {
+    return _vocabularies?['do_you_want_to_call'] as String;
   }
 
-  String get msgEnterPinCode {
-    return _vocabularies?['msg_enter_pin_code'] as String;
+  String get call {
+    return _vocabularies?['call'] as String;
+  }
+
+  String get help_to_save_millions_by_donating_blood {
+    return _vocabularies?['help_to_save_millions_by_donating_blood'] as String;
+  }
+
+  String get donorPhoneNumber {
+    return _vocabularies?['donorPhoneNumber'] as String;
+  }
+
+  String get compatibleTypes {
+    return _vocabularies?['compatible_types'] as String;
   }
 
   String get verify {
@@ -309,9 +308,9 @@ class Translations {
     return _vocabularies?['mobile_number'] as String;
   }
 
-  String get name {
-    return _vocabularies?['name'] as String;
-  }
+  // String get name {
+  //   return _vocabularies?['name'] as String;
+  // }
 
   String get ok {
     return _vocabularies?['ok'] as String;

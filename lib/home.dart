@@ -1,4 +1,5 @@
 import 'package:bankblood/pages/basic_search_page.dart';
+import 'package:bankblood/pages/settings.dart';
 import 'package:bankblood/pages/volunteers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:provider/provider.dart';
 
 import 'colors.dart';
+import 'i18n/translations.dart';
 import 'pages/donation.dart';
 import 'provider/volunteer_provider.dart';
 
@@ -26,7 +28,6 @@ class _HomeState extends State<Home> {
     super.initState();
     _pageController = PageController();
   }
-  final List<Widget> _title = <Widget>[const Text('Home'), const Text('Volunteers'), const Text('Donate'), const Text('Setting')];
 
   @override
   void dispose() {
@@ -39,6 +40,9 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    var translation=Translations.of(context);
+    final List<Widget> _title = <Widget>[ Text(translation.home),  Text(translation.volunteers),  Text(translation.donate),  Text(translation.settings)];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: _color.orange,
@@ -56,15 +60,13 @@ class _HomeState extends State<Home> {
             BasicSearch(),
            Volunteers(),
             Donate(),
-            Container(
-              color: Colors.white,
-            ),
+           const Settings()
           ],
         ),
       ),
       bottomNavigationBar: BottomNavyBar(
         animationDuration: const Duration(milliseconds: 200),
-        backgroundColor: _color.grey,
+        backgroundColor:Provider.of<AppColors>(context).grey ,
         itemCornerRadius: 15,
         selectedIndex: _currentIndex,
         onItemSelected: (index) {
@@ -79,42 +81,42 @@ class _HomeState extends State<Home> {
           BottomNavyBarItem(
               activeColor: _color.deepOrange,
               title: Text(
-                'Home',
-                style: TextStyle(color: _color.black),
+                translation.home,
+                style: TextStyle(color: Provider.of<AppColors>(context).black),
               ),
               icon: Icon(
                 FlutterRemix.search_eye_line,
-                color: _color.black,
+                color: Provider.of<AppColors>(context).black,
               )),
           BottomNavyBarItem(
               activeColor: _colors,
               title: Text(
-                'Volunteers',
-                style: TextStyle(color: _color.black),
+                translation.volunteers,
+                style: TextStyle(color: Provider.of<AppColors>(context).black),
               ),
               icon: Icon(
                 FlutterRemix.empathize_line,
-                color: _color.black,
+                color: Provider.of<AppColors>(context).black,
               )),
           BottomNavyBarItem(
               activeColor: _colors,
               title: Text(
-                'Donate',
-                style: TextStyle(color: _color.black),
+                translation.donate,
+                style: TextStyle(color: Provider.of<AppColors>(context).black),
               ),
               icon: Icon(
                 FlutterRemix.heart_add_fill,
-                color: _color.black,
+                color: Provider.of<AppColors>(context).black,
               )),
           BottomNavyBarItem(
               activeColor: _colors,
               title: Text(
-                'settings',
-                style: TextStyle(color: _color.black),
+                translation.settings,
+                style: TextStyle(color: Provider.of<AppColors>(context).black),
               ),
               icon: Icon(
                 FlutterRemix.settings_2_line,
-                color: _color.black,
+                color: Provider.of<AppColors>(context).black,
               )),
         ],
       ),
