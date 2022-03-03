@@ -7,7 +7,7 @@ import '../main.dart';
 class AppViewModel extends ChangeNotifier {
 bool isExpanded=false;
 bool? arabic,english;
-  Locale appLocale = arLocale;
+  Locale appLocale = enLocale;
   AppViewModel() {
 
   }

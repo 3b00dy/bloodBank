@@ -49,6 +49,9 @@ dependencies:
   flutter_remix: ^0.0.1
   sizer: ^2.0.15
   getwidget:
+  connectivity_plus:
+  simple_animations: ^4.0.1
+  supercharged: ^2.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -23,8 +23,8 @@ class Translations {
       'choose_blood_type': 'Choose Blood Type',
       'search': 'Search',
       'Search_by_compatible_type': 'Search by compatible type',
-      'volunteers': 'Volunteers',
-      'Name': 'Name: ',
+      'donors': 'Donors',
+      'Name': 'Name ',
       'address': 'Address:',
       'age': 'Age',
       'donate': 'Donate',
@@ -102,6 +102,7 @@ class Translations {
       'msg_error_loading_content': 'Error Loading Content!',
       'empty': 'Empty content',
       'app_name': 'Talabatey Partner',
+      'no_internet': 'No Internet Connection',
 
     },
     'ar': {
@@ -112,7 +113,7 @@ class Translations {
       'choose_blood_type': 'اختر فصيلة الدم',
       'search': 'بحث',
       'Search_by_compatible_type': 'بحث عن طريق الفصيلة المتوافقة',
-      'volunteers': 'المتبرعين',
+      'donors': 'المتبرعين',
       'Name': 'الأسم: ',
       'address': 'العنوان:',
       'age': 'العمر:',
@@ -149,6 +150,7 @@ class Translations {
       'help_to_save_millions_by_donating_blood': 'تبرع وساهم بأنقاذ حياة الملايين',
       'donorPhoneNumber': 'رقم هاتف المتبرع',
       'compatible_types': 'الفصائل المتوافقة',
+      'no_internet': 'لا يوجد اتصال بالأنترنت',
 
 
     },
@@ -164,7 +166,7 @@ class Translations {
 
   String get searchByCompatibleTypes => _vocabularies?['Search_by_compatible_type'] as String;
 
-  String get volunteers => _vocabularies?['volunteers'] as String;
+  String get donors => _vocabularies?['donors'] as String;
 
   String get name => _vocabularies?['Name'] as String;
 
@@ -306,6 +308,9 @@ class Translations {
 
   String get mobileNumber {
     return _vocabularies?['mobile_number'] as String;
+  }
+String get noInternet {
+    return _vocabularies?['no_internet'] as String;
   }
 
   // String get name {

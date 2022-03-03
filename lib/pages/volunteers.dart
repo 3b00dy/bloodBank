@@ -1,85 +1,110 @@
 import 'package:bankblood/colors.dart';
 import 'package:bankblood/i18n/translations.dart';
-import 'package:bankblood/provider/volunteer_provider.dart';
+import 'package:bankblood/provider/connection_state.dart';
+import 'package:bankblood/provider/loading_state.dart';
 import 'package:bankblood/provider/volunteer_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-
 class Volunteers extends StatelessWidget {
   Volunteers({Key? key}) : super(key: key);
   final AppColors _colors = AppColors();
-
   @override
   Widget build(BuildContext context) {
-    var translation=Translations.of(context);
+    var connection=Provider.of<ConnectionStatus>(context,listen: false);
+
+    var translation = Translations.of(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-backgroundColor: Provider.of<AppColors>(context).white,
-      body: Column(
-        children: [
-          SizedBox(
-            height: size.height * 0.025,
-          ),
-          Consumer<VolunteerProvider>(builder: (context, hospitals, _) {
-            return Container(
-              height: size.height * 0.78,
-              child: ListView.builder(
-                itemCount: hospitals.volList.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                        top: 13.0, left: 13.0, right: 13.0),
-                    child: Container(
-                      height: size.height * 0.14,
-                      decoration: BoxDecoration(
-                        color: Provider.of<AppColors>(context).greys,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ListTile(
-                        onTap: () {
-                          buildAlertDialog(size, context, index);
-                        },
-                        title: Text(
-                            '${translation.name} ${hospitals.volList[index].volunteerName}'
-
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: size.height * 0.022,
+      backgroundColor: Provider.of<AppColors>(context).white,
+      body: RefreshIndicator(
+        backgroundColor: _colors.orange,
+        color: _colors.white,
+        strokeWidth: 3.5,
+        onRefresh: () {
+          return Future.delayed(const Duration(seconds: 1), () {
+            Provider.of<VolunteerProvider>(context, listen: false)
+                .fetchVolunteer();
+          });
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: size.height * 0.025,
+            ),
+             Consumer<VolunteerProvider>(builder: (context, volunteer, _) {
+               if(connection.connection!='ConnectivityResult.none') {
+                if (volunteer.loadingState == LoadingState.loading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return SizedBox(
+                    height: size.height * 0.78,
+                    child: ListView.builder(
+                      itemCount: volunteer.volList!.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              top: 13.0, left: 13.0, right: 13.0),
+                          child: Container(
+                            height: size.height * 0.14,
+                            decoration: BoxDecoration(
+                              color: Provider.of<AppColors>(context).greys,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            Text(
-                                '${translation.address} ${hospitals.volList[index].volunteerAddress}'),
-                            Text(
-                                '${translation.age} ${hospitals.volList[index].volunteerAge}'),
-                          ],
-                        ),
-                        trailing: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Container(
-                              height: size.height * 0.1,
-                              width: size.width * 0.15,
-                              decoration: BoxDecoration(
-                                color: _colors.pink,
-                                borderRadius: BorderRadius.circular(8),
+                            child: ListTile(
+                              onTap: () {
+                                buildAlertDialog(size, context, index);
+                              },
+                              title: Text(
+                                  '${translation.name} ${volunteer.volList![index].volunteerName}'),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: size.height * 0.022,
+                                  ),
+                                  Text(
+                                      '${translation.address} ${volunteer.volList![index].volunteerAddress}'),
+                                  Text(
+                                      '${translation.age} ${volunteer.volList![index].volunteerAge}'),
+                                ],
+                              ),
+                              trailing: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Container(
+                                    height: size.height * 0.1,
+                                    width: size.width * 0.15,
+                                    decoration: BoxDecoration(
+                                      color: _colors.pink,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${volunteer.volList![index].volunteerBloodType}',
+                                    style:
+                                        TextStyle(fontSize: size.width * 0.06),
+                                  ),
+                                ],
                               ),
                             ),
-                            Text(
-                              '${hospitals.volList[index].volunteerBloodType}',
-                              style: TextStyle(fontSize: size.width * 0.06),
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   );
-                },
-              ),
-            );
-          }),
-        ],
+                }
+
+              }else {
+                 return ( Center(child: Text(translation.noInternet,style: TextStyle(fontSize: 25,color: _colors.orange),),));
+
+               }
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -88,10 +113,10 @@ backgroundColor: Provider.of<AppColors>(context).white,
     AlertDialog alert = AlertDialog(
         title: Column(
           children: [
-             Padding(
-              padding:const EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Text(
-                Translations.of(context).doYouWantToCall ,
+                Translations.of(context).doYouWantToCall,
               ),
             ),
             Divider(
@@ -101,7 +126,7 @@ backgroundColor: Provider.of<AppColors>(context).white,
           ],
         ),
         content: SizedBox(
-          height: size.height*0.25  ,
+          height: size.height * 0.25,
           child: Consumer<VolunteerProvider>(builder: (context, hospitals, _) {
             return Column(
               children: [
@@ -112,11 +137,11 @@ backgroundColor: Provider.of<AppColors>(context).white,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              '${Translations.of(context).address} ${hospitals.volList[index].volunteerAddress}'),
+                              '${Translations.of(context).address} ${hospitals.volList![index].volunteerAddress}'),
                           Text(
-                              '${Translations.of(context).age}  ${hospitals.volList[index].volunteerAge}'),
+                              '${Translations.of(context).age}  ${hospitals.volList![index].volunteerAge}'),
                           Text(
-                              '${Translations.of(context).phoneNumber}  ${hospitals.volList[index].volunteerPhoneNumber}'),
+                              '${Translations.of(context).phoneNumber}  ${hospitals.volList![index].volunteerPhoneNumber}'),
                         ],
                       ),
                       Expanded(
@@ -135,7 +160,7 @@ backgroundColor: Provider.of<AppColors>(context).white,
                                   ),
                                 ),
                                 Text(
-                                  '${hospitals.volList[index].volunteerBloodType}',
+                                  '${hospitals.volList![index].volunteerBloodType}',
                                   style: TextStyle(fontSize: size.width * 0.06),
                                 ),
                               ],
@@ -146,13 +171,14 @@ backgroundColor: Provider.of<AppColors>(context).white,
                     ])),
                 Row(
                   children: [
-                    buildElevatedButton(context, size, _colors.grey, Translations.of(context).cancel),
+                    buildElevatedButton(context, size, _colors.grey,
+                        Translations.of(context).cancel),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
                           width: size.width * 0.36,
-                          child: buildElevatedButton(
-                              context, size, _colors.black,Translations.of(context).call)),
+                          child: buildElevatedButton(context, size,
+                              _colors.black, Translations.of(context).call)),
                     )
                   ],
                 )

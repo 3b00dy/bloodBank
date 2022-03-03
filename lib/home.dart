@@ -20,34 +20,41 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _currentIndex = 0;
-  late PageController _pageController;
-
   @override
   void initState() {
     super.initState();
+
     _pageController = PageController();
   }
 
   @override
   void dispose() {
     _pageController.dispose();
+
     super.dispose();
   }
+
+  int _currentIndex = 0;
+  late PageController _pageController;
 
   final Color _colors = AppColors().orange;
   final AppColors _color = AppColors();
 
   @override
   Widget build(BuildContext context) {
-    var translation=Translations.of(context);
-    final List<Widget> _title = <Widget>[ Text(translation.home),  Text(translation.volunteers),  Text(translation.donate),  Text(translation.settings)];
+    var translation = Translations.of(context);
+    final List<Widget> _title = <Widget>[
+      Text(translation.home),
+      Text(translation.donors),
+      Text(translation.donate),
+      Text(translation.settings)
+    ];
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: _color.orange,
         centerTitle: true,
-        title:  _title[_currentIndex],
+        title: _title[_currentIndex],
         elevation: 0,
       ),
       body: SizedBox.expand(
@@ -58,21 +65,21 @@ class _HomeState extends State<Home> {
           },
           children: <Widget>[
             BasicSearch(),
-           Volunteers(),
+            Volunteers(),
             Donate(),
-           const Settings()
+            const Settings()
           ],
         ),
       ),
       bottomNavigationBar: BottomNavyBar(
         animationDuration: const Duration(milliseconds: 200),
-        backgroundColor:Provider.of<AppColors>(context).grey ,
+        backgroundColor: Provider.of<AppColors>(context).grey,
         itemCornerRadius: 15,
         selectedIndex: _currentIndex,
         onItemSelected: (index) {
-          if(index==1){
-            Provider.of<VolunteerProvider>(context, listen: false).fetchVolunteer();
-
+          if (index == 1) {
+            Provider.of<VolunteerProvider>(context, listen: false)
+                .fetchVolunteer();
           }
           setState(() => _currentIndex = index);
           _pageController.jumpToPage(index);
@@ -91,7 +98,7 @@ class _HomeState extends State<Home> {
           BottomNavyBarItem(
               activeColor: _colors,
               title: Text(
-                translation.volunteers,
+                translation.donors,
                 style: TextStyle(color: Provider.of<AppColors>(context).black),
               ),
               icon: Icon(
