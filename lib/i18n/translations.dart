@@ -11,7 +11,8 @@ class Translations {
   Map<String, String>? get _vocabularies => _localizedValues[_languageCode];
 
   static Translations of(BuildContext context) {
-    return Localizations.of<Translations>(context, Translations) ?? Translations('ar');
+    return Localizations.of<Translations>(context, Translations) ??
+        Translations('ar');
   }
 
   static final Map<String, Map<String, String>> _localizedValues = {
@@ -25,7 +26,7 @@ class Translations {
       'Search_by_compatible_type': 'Search by compatible type',
       'donors': 'Donors',
       'Name': 'Name ',
-      'address': 'Address:',
+      'address': 'Address',
       'age': 'Age',
       'donate': 'Donate',
       'full_name': 'Full name',
@@ -57,9 +58,40 @@ class Translations {
       'call': 'Call',
       'cancel': 'Cancel',
       'do_you_want_to_call': 'Do you want to call?',
-      'help_to_save_millions_by_donating_blood': 'Help to save millions by donating blood',
+      'help_to_save_millions_by_donating_blood':
+          'Help to save millions by donating blood',
       'donorPhoneNumber': 'Donor Phone Number',
       'compatible_types': 'Compatible Types',
+
+      'first_name': 'First Name',
+      'enter_first_name': 'Enter your first Name',
+      'last_name': 'Last Name',
+      'enter_last_name': 'Enter your last Name',
+      'email_address': 'Email address',
+      'email_hint': 'user@example.com',
+      'enter_address': 'Enter your address',
+      'gender': 'Gender',
+      'birth_date': 'Birth date',
+      'blood_type': 'Blood Type',
+      'register': 'Register',
+      'choose_your_blood_type': 'Choose your blood type',
+      'not_available': 'Not Available',
+      'have_account': 'If you already have an account',
+      'you_can': 'You can',
+      'login_here': 'Login here!',
+      'password': 'Password',
+      'password_hint': 'at least 8 characters',
+      'loading': 'Loading...',
+      'thisFieldIsRequired': 'This field is required',
+      'male': 'Male',
+      'female': 'Female',
+      'select_your_gender': 'Select your gender',
+      'register_here': 'Register here!',
+      'login':'Login',
+      'dont_have_account': 'If you don\'t have an account',
+
+
+
 
 
       'cancel_order': 'Cancel Order',
@@ -71,7 +103,8 @@ class Translations {
       'customer_mobile_number': 'Customer Mobile Number',
       'order_total': 'Order Total',
       'review_order': 'Review Order',
-      'msg_enter_pin_code_from_sms': 'Please enter the pin code sent to you by SMS',
+      'msg_enter_pin_code_from_sms':
+          'Please enter the pin code sent to you by SMS',
       'the_restaurant': 'A Restaurant',
       'msg_enter_mobile_name': 'Please Enter Mobile Number',
       'msg_enter_restaurant_name': 'Please Enter Restaurant Name',
@@ -84,13 +117,15 @@ class Translations {
       'ok': 'Ok',
       // 'cancel': 'Cancel',
       'location_permission_required': 'Location Required',
-      'msg_location_permission_required': 'Too access all of the app\'s features, consider granting GPS permissions',
+      'msg_location_permission_required':
+          'Too access all of the app\'s features, consider granting GPS permissions',
       'confirm_order': 'Confirm Order',
       'total_price': 'Total Price',
       'delivery_cost': 'Delivery Cost',
       'add_to_order': 'Add to Order',
       'special_notes': 'Special Notes',
-      'dish_order_special_instructions': 'If you have any note about the order, please write it here..',
+      'dish_order_special_instructions':
+          'If you have any note about the order, please write it here..',
       'all_dishes': 'All Dishes',
       'disabled_dishes': 'Disabled dishes',
       'find_city_name': 'find city name...',
@@ -103,7 +138,6 @@ class Translations {
       'empty': 'Empty content',
       'app_name': 'Talabatey Partner',
       'no_internet': 'No Internet Connection',
-
     },
     'ar': {
       'switch_language': 'تغيير اللغة',
@@ -147,12 +181,37 @@ class Translations {
       'do_you_want_to_call': 'هل تريد الأتصال؟',
       'call': 'اتصال',
       'cancel': 'الغاء',
-      'help_to_save_millions_by_donating_blood': 'تبرع وساهم بأنقاذ حياة الملايين',
+      'help_to_save_millions_by_donating_blood':
+          'تبرع وساهم بأنقاذ حياة الملايين',
       'donorPhoneNumber': 'رقم هاتف المتبرع',
       'compatible_types': 'الفصائل المتوافقة',
       'no_internet': 'لا يوجد اتصال بالأنترنت',
-
-
+      'first_name': 'الأسم الأول',
+      'enter_first_name': 'ادخل اسمك الأول',
+      'last_name': 'الأسم الأخير',
+      'enter_last_name': 'ادخل اسمك الأخير',
+      'email_address': 'عنوان البريد الألكتروني',
+      'email_hint': 'user@example.com',
+      'enter_address': 'ادخل عنوانك',
+      'gender': 'الجنس',
+      'birth_date': 'تأريخ الميلاد',
+      'blood_type': 'فصيلة الدم',
+      'register': 'التسجيل',
+      'choose_your_blood_type': 'اختر فصيلة دمك',
+      'not_available': 'غير متوفر',
+      'password': 'كلمة السر',
+      'password_hint': 'يجب ان تحتوي 8 احرف او ارقام على الأقل',
+      'loading': 'يرجى الأنتظار...',
+      'thisFieldIsRequired': 'هذا الحقل مطلوب',
+      'male': 'ذكر',
+      'female': 'انثى',
+      'select_your_gender': 'اختر الجنس',
+      'register_here': 'التسجيل',
+      'login':'تسجيل الدخول',
+      'dont_have_account': 'اذا لم يكن لديك حساب',
+      'you_can': 'تستطيع',
+      'have_account': 'لديك حساب بالفعل؟',
+      'login_here': 'تسجيل الدخول!',
     },
   };
 
@@ -164,7 +223,8 @@ class Translations {
 
   String get search => _vocabularies?['search'] as String;
 
-  String get searchByCompatibleTypes => _vocabularies?['Search_by_compatible_type'] as String;
+  String get searchByCompatibleTypes =>
+      _vocabularies?['Search_by_compatible_type'] as String;
 
   String get donors => _vocabularies?['donors'] as String;
 
@@ -271,7 +331,7 @@ class Translations {
   }
 
   String get oPlus {
-    return _vocabularies?['o-'] as String;
+    return _vocabularies?['o+'] as String;
   }
 
   String get oMinus {
@@ -286,6 +346,7 @@ class Translations {
     return _vocabularies?['call'] as String;
   }
 
+  // ignore: non_constant_identifier_names
   String get help_to_save_millions_by_donating_blood {
     return _vocabularies?['help_to_save_millions_by_donating_blood'] as String;
   }
@@ -309,7 +370,8 @@ class Translations {
   String get mobileNumber {
     return _vocabularies?['mobile_number'] as String;
   }
-String get noInternet {
+
+  String get noInternet {
     return _vocabularies?['no_internet'] as String;
   }
 
@@ -325,85 +387,108 @@ String get noInternet {
     return _vocabularies?['cancel'] as String;
   }
 
-  String get locationPermissionRequiredMessage {
-    return _vocabularies?['msg_location_permission_required'] as String;
+  String get firstName {
+    return _vocabularies?['first_name'] as String;
   }
 
-  String get locationPermissionRequired {
-    return _vocabularies?['location_permission_required'] as String;
+  String get enterFirstName {
+    return _vocabularies?['enter_first_name'] as String;
   }
 
-  String get confirmOrder {
-    return _vocabularies?['confirm_order'] as String;
+  String get lastName {
+    return _vocabularies?['last_name'] as String;
   }
 
-  String get totalPrice {
-    return _vocabularies?['total_price'] as String;
+  String get enterLastName {
+    return _vocabularies?['enter_last_name'] as String;
   }
 
-  String get deliveryCost {
-    return _vocabularies?['delivery_cost'] as String;
+  String get emailAddress {
+    return _vocabularies?['email_address'] as String;
   }
 
-  String get addToOrder {
-    return _vocabularies?['add_to_order'] as String;
+  String get enterAddress {
+    return _vocabularies?['enter_address'] as String;
   }
 
-  String get specialNotes {
-    return _vocabularies?['special_notes'] as String;
+  String get emailHint {
+    return _vocabularies?['email_hint'] as String;
   }
 
-  String get dishOrderSpecialInstructions {
-    return _vocabularies?['dish_order_special_instructions'] as String;
+  String get gender {
+    return _vocabularies?['gender'] as String;
   }
 
-  String get allDishes {
-    return _vocabularies?['all_dishes'] as String;
+  String get birthDate {
+    return _vocabularies?['birth_date'] as String;
   }
 
-  String get disabledDishes {
-    return _vocabularies?['disabled_dishes'] as String;
+  String get bloodType {
+    return _vocabularies?['blood_type'] as String;
   }
 
-  String get findCityName {
-    return _vocabularies?['find_city_name'] as String;
+  String get register {
+    return _vocabularies?['register'] as String;
   }
 
-  String get newOrder {
-    return _vocabularies?['new_order'] as String;
+  String get chooseYourBloodType {
+    return _vocabularies?['choose_your_blood_type'] as String;
   }
 
-  String get order {
-    return _vocabularies?['order'] as String;
+  String get notAvailable {
+    return _vocabularies?['not_available'] as String;
   }
 
-  String get more {
-    return _vocabularies?['more'] as String;
+  String get haveAccount {
+    return _vocabularies?['have_account'] as String;
   }
 
-  String get notFound {
-    return _vocabularies?['not_found'] as String;
+  String get youCan {
+    return _vocabularies?['you_can'] as String;
   }
 
-  String get foodCategories {
-    return _vocabularies?['food_categories'] as String;
+  String get loginHere {
+    return _vocabularies?['login_here'] as String;
   }
 
-  String get empty {
-    return _vocabularies?['empty'] as String;
+  String get passwordHint {
+    return _vocabularies?['password_hint'] as String;
   }
 
-  String get msgErrorLoadingContent {
-    return _vocabularies?['msg_error_loading_content'] as String;
+  String get password {
+    return _vocabularies?['password'] as String;
   }
 
-  String get appName {
-    return _vocabularies?['app_name'] as String;
+  String get loading {
+    return _vocabularies?['loading'] as String;
+  }
+
+  String get thisFieldIsRequired {
+    return _vocabularies?['thisFieldIsRequired'] as String;
+  }
+
+  String get male {
+    return _vocabularies?['male'] as String;
+  }
+
+  String get female {
+    return _vocabularies?['female'] as String;
+  }
+
+  String get chooseYourGender {
+    return _vocabularies?['select_your_gender'] as String;
+  }  String get dontHaveAccount {
+    return _vocabularies?['dont_have_account'] as String;
+  }String get registerHere {
+    return _vocabularies?['register_here'] as String;
+  }String get login {
+    return _vocabularies?['login'] as String;
   }
 }
 
 class MyDefaultCupertinoLocalizations extends CupertinoLocalizations {
-  MyDefaultCupertinoLocalizations(this._languageCode) : assert(_languageCode != null);
+  MyDefaultCupertinoLocalizations(this._languageCode)
+      : assert(_languageCode != null);
 
   final _en = const DefaultCupertinoLocalizations();
 
@@ -457,16 +542,19 @@ class MyDefaultCupertinoLocalizations extends CupertinoLocalizations {
   DatePickerDateOrder get datePickerDateOrder => _en.datePickerDateOrder;
 
   @override
-  DatePickerDateTimeOrder get datePickerDateTimeOrder => _en.datePickerDateTimeOrder;
+  DatePickerDateTimeOrder get datePickerDateTimeOrder =>
+      _en.datePickerDateTimeOrder;
 
   @override
-  String datePickerDayOfMonth(int dayIndex) => _en.datePickerDayOfMonth(dayIndex);
+  String datePickerDayOfMonth(int dayIndex) =>
+      _en.datePickerDayOfMonth(dayIndex);
 
   @override
   String datePickerHour(int hour) => _en.datePickerHour(hour);
 
   @override
-  String datePickerHourSemanticsLabel(int hour) => _en.datePickerHourSemanticsLabel(hour);
+  String datePickerHourSemanticsLabel(int hour) =>
+      _en.datePickerHourSemanticsLabel(hour);
 
   @override
   String datePickerMediumDate(DateTime date) => _en.datePickerMediumDate(date);
@@ -475,7 +563,8 @@ class MyDefaultCupertinoLocalizations extends CupertinoLocalizations {
   String datePickerMinute(int minute) => _en.datePickerMinute(minute);
 
   @override
-  String datePickerMinuteSemanticsLabel(int minute) => _en.datePickerMinuteSemanticsLabel(minute);
+  String datePickerMinuteSemanticsLabel(int minute) =>
+      _en.datePickerMinuteSemanticsLabel(minute);
 
   @override
   String datePickerMonth(int monthIndex) => _en.datePickerMonth(monthIndex);
@@ -493,13 +582,15 @@ class MyDefaultCupertinoLocalizations extends CupertinoLocalizations {
   String timerPickerMinute(int minute) => _en.timerPickerMinute(minute);
 
   @override
-  String timerPickerMinuteLabel(int minute) => _en.timerPickerMinuteLabel(minute);
+  String timerPickerMinuteLabel(int minute) =>
+      _en.timerPickerMinuteLabel(minute);
 
   @override
   String timerPickerSecond(int second) => _en.timerPickerSecond(second);
 
   @override
-  String timerPickerSecondLabel(int second) => _en.timerPickerSecondLabel(second);
+  String timerPickerSecondLabel(int second) =>
+      _en.timerPickerSecondLabel(second);
 
   String _get(String key) {
     return _dict[_languageCode]?[key] ?? "unknown";

@@ -52,6 +52,7 @@ dependencies:
   connectivity_plus:
   simple_animations: ^4.0.1
   supercharged: ^2.1.1
+  date_field:
 dev_dependencies:
   flutter_test:
     sdk: flutter

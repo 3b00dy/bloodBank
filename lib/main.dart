@@ -155,7 +155,7 @@ class _MyAppState extends State<MyApp> {
           appBarTheme: AppBarTheme(color: AppColors().orange),
           fontFamily: widget.currentLocate==arLocale?'Tajawal':'Roboto'),
 
-      initialRoute: '/',
+      initialRoute: 'login',
 
       routes: {
         '/': (context) => const Home(),
