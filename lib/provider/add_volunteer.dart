@@ -10,14 +10,19 @@ import '../statics.dart';
 
 class AddVolunteerProvider with ChangeNotifier {
   bool isSigned = false;
-
+// ignore: prefer_typing_uninitialized_variables
+var token;
   addVolunteer(volunteerInformation) async {
     var url = Uri.parse('$baseUrl/api/volunteer');
+    SharedPreferences tokenValueSet = await SharedPreferences.getInstance();
+    token = tokenValueSet.getString('token') ?? 'null';
 
     try {
       final res = await http.post(url,
           headers: {
             "Content-Type": "application/json",
+            'Authorization': 'Bearer $token',
+
           },
           body: jsonEncode({
             'volunteerName': volunteerInformation['volunteerName'],

@@ -1,14 +1,17 @@
 import 'dart:async';
 
 import 'package:bankblood/colors.dart';
+import 'package:bankblood/pages/account_information.dart';
 import 'package:bankblood/pages/hospitals_results.dart';
+import 'package:bankblood/pages/language_page.dart';
 import 'package:bankblood/pages/search_by_type.dart';
 import 'package:bankblood/pages/splash.dart';
-import 'package:bankblood/pages/volunteers.dart';
+import 'package:bankblood/pages/donors.dart';
 import 'package:bankblood/provider/TypeChangeButtonColor.dart';
 import 'package:bankblood/provider/add_volunteer.dart';
 import 'package:bankblood/provider/authentication.dart';
 import 'package:bankblood/provider/connection_state.dart';
+import 'package:bankblood/provider/get_profile.dart';
 import 'package:bankblood/provider/language_viewModel.dart';
 import 'package:bankblood/provider/search_type_color.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +19,7 @@ import 'package:flutter/services.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'dart:developer' as developer;
 
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -35,13 +38,11 @@ const Locale enLocale = Locale('en');
 
 Locale? prevLocale;
 String? token;
+String? languageSelected;
+late bool isDark;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  // SharedPreferences tokenValueSet = await SharedPreferences.getInstance();
-  //
-  // token = tokenValueSet.getString('token') ?? 'null';
-  // debugPrint('token=   ${token}');
+   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -55,35 +56,39 @@ void main() async {
           create: (color) => ChangeButtonColor(),
         ),
         ChangeNotifierProvider(
+          create: (getProfile) => GetProfile(),
+        ),
+        ChangeNotifierProvider(
           create: (typeColor) => TypeChangeButtonColor(),
         ),
         ChangeNotifierProvider(
           create: (test) => VolunteerProvider(),
-        ), ChangeNotifierProvider(
+        ),
+        ChangeNotifierProvider(
           create: (auth) => Authentication(),
         ),
         ChangeNotifierProvider(
           create: (add) => AddVolunteerProvider(),
-        ),   ChangeNotifierProvider(
+        ),
+        ChangeNotifierProvider(
           create: (color) => AppColors(),
-        ),  ChangeNotifierProvider(
+        ),
+        ChangeNotifierProvider(
           create: (language) => AppViewModel(),
-        ), ChangeNotifierProvider(
+        ),
+        ChangeNotifierProvider(
           create: (connection) => ConnectionStatus(),
         ),
       ],
-      child:  Consumer<AppViewModel>(builder: (context, viewModel, child) {
-
+      child: Consumer<AppViewModel>(builder: (context, viewModel, child) {
         return MyApp(viewModel.appLocale);
       }),
     ),
   );
 }
 
-
 class MyApp extends StatefulWidget {
-
-  const MyApp(this.currentLocate,{Key? key}) : super(key: key);
+  const MyApp(this.currentLocate, {Key? key}) : super(key: key);
 
   final Locale currentLocate;
 
@@ -93,9 +98,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<Locale> get supportedLocales => [
-    enLocale,
-    arLocale,
-
+        enLocale,
+        arLocale,
       ];
 
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
@@ -107,8 +111,11 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    Provider.of<GetProfile>(context, listen: false).getProfile();
     initConnectivity();
-
+    languageCheck();
+    validCheck();
+    darkCheck();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
@@ -117,6 +124,31 @@ class _MyAppState extends State<MyApp> {
   void dispose() {
     _connectivitySubscription.cancel();
     super.dispose();
+  }
+
+  validCheck() async {
+    SharedPreferences tokenValueSet = await SharedPreferences.getInstance();
+    token = tokenValueSet.getString('token') ?? 'null';
+
+    Provider.of<Authentication>(context, listen: false).token = token!;
+  }
+
+  darkCheck() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    isDark = prefs.getBool('dark')!;
+
+    Provider.of<AppColors>(context, listen: false).isDark = isDark;
+
+    isDark == true
+        ? Provider.of<AppColors>(context, listen: false).darkSelected()
+        : Provider.of<AppColors>(context, listen: false).lighSelected();
+  }
+
+  languageCheck() async {
+    SharedPreferences tokenValueSet = await SharedPreferences.getInstance();
+    languageSelected = tokenValueSet.getString('locale') ?? 'null';
+    Provider.of<AppViewModel>(context, listen: false)
+        .setLanguage(languageSelected);
   }
 
   Future<void> initConnectivity() async {
@@ -142,7 +174,8 @@ class _MyAppState extends State<MyApp> {
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     setState(() {
       _connectionStatus = result;
-      Provider.of<ConnectionStatus>(context,listen: false).setConnectionState(result.toString());
+      Provider.of<ConnectionStatus>(context, listen: false)
+          .setConnectionState(result.toString());
     });
   }
 
@@ -153,9 +186,9 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
           primaryColor: AppColors().orange,
           appBarTheme: AppBarTheme(color: AppColors().orange),
-          fontFamily: widget.currentLocate==arLocale?'Tajawal':'Roboto'),
+          fontFamily: widget.currentLocate == arLocale ? 'Tajawal' : 'Roboto'),
 
-      initialRoute: 'login',
+      initialRoute: languageSelected == 'null' ? 'language' : '/',
 
       routes: {
         '/': (context) => const Home(),
@@ -165,7 +198,9 @@ class _MyAppState extends State<MyApp> {
         'donate': (context) => Donate(),
         'register': (context) => Register(),
         'login': (context) => Login(),
-        'volunteer': (context) => Volunteers(),
+        'volunteer': (context) => Donors(),
+        'accountInformation': (context) => const AccountInformation(),
+        'language': (context) => const LanguagePage(),
       },
       localizationsDelegates: const [
         AlphaStoreLocalizationDelegate(),

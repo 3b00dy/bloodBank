@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
-  final AppColors _colors = AppColors();
   final _formKey = GlobalKey<FormState>();
   Map<String, dynamic> authValues = {
     'email': '',
@@ -23,7 +22,7 @@ class Login extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: _colors.white,
+        backgroundColor: colors.white,
         body: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -56,7 +55,7 @@ class Login extends StatelessWidget {
                     children: [
                       Text(
                         translation.dontHaveAccount,
-                        style: TextStyle(fontSize: size.width * 0.05),
+                        style: TextStyle(fontSize: size.width * 0.05,color: colors.black),
                       ),
                     ],
                   ),
@@ -64,7 +63,7 @@ class Login extends StatelessWidget {
                     children: [
                       Text(
                         "${translation.youCan} ",
-                        style: TextStyle(fontSize: size.width * 0.05),
+                        style: TextStyle(fontSize: size.width * 0.05,color: colors.black),
                       ),
                       TextButton(
                         onPressed: () {
@@ -73,7 +72,7 @@ class Login extends StatelessWidget {
                         child: Text(translation.registerHere,
                             style: TextStyle(
                                 fontSize: size.width * 0.05,
-                                color: _colors.orange)),
+                                color: colors.orange)),
                       ),
                     ],
                   ),
@@ -83,6 +82,7 @@ class Login extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      style: TextStyle(color: colors.black),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return translation.thisFieldIsRequired;
@@ -95,15 +95,21 @@ class Login extends StatelessWidget {
                       decoration: InputDecoration(
                           labelText: translation.emailAddress,
                           hintText: translation.emailHint,
-                          labelStyle: const TextStyle(
-                              color: Colors.black,
+                          hintStyle: TextStyle(color: colors.black),
+
+
+                          labelStyle:  TextStyle(
+                              color: colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.w400),
-                          prefixIcon: const Icon(
+                          prefixIcon:  Icon(
                             FlutterRemix.mail_line,
-                            color: Colors.black,
+                            color: colors.black,
                             size: 25,
                           ),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: colors.grey, width: 2),
+                              borderRadius: BorderRadius.circular(10)),
                           focusedBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: colors.black, width: 1.5),
@@ -118,6 +124,9 @@ class Login extends StatelessWidget {
                     child: Consumer<Authentication>(
                         builder: (context, obscure, _) {
                       return TextFormField(
+                        style: TextStyle(color: colors.black),
+
+                        obscureText: obscure.isObscure,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return translation.thisFieldIsRequired;
@@ -130,8 +139,10 @@ class Login extends StatelessWidget {
                         decoration: InputDecoration(
                             labelText: translation.password,
                             hintText: translation.passwordHint,
-                            labelStyle: const TextStyle(
-                                color: Colors.black,
+                            hintStyle: TextStyle(color: colors.black),
+
+                            labelStyle:  TextStyle(
+                                color: colors.black,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400),
                             suffixIcon: IconButton(
@@ -140,16 +151,18 @@ class Login extends StatelessWidget {
                               },
                               icon: Icon(obscure.isObscure
                                   ? FlutterRemix.eye_close_line
-                                  : FlutterRemix.eye_line),
+                                  : FlutterRemix.eye_line ,color: colors.black,),
                             ),
                             prefixIcon: Icon(
                               FlutterRemix.key_line,
                               color: colors.black,
                               size: 25,
                             ),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: colors.grey, width: 2),
+                                borderRadius: BorderRadius.circular(10)),
                             focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: colors.black, width: 1.5),
+                                borderSide:           BorderSide(color: colors.black, width: 1.5),
                                 borderRadius: BorderRadius.circular(10))),
                       );
                     }),
@@ -161,17 +174,28 @@ class Login extends StatelessWidget {
                     width: size.width * 0.8,
                     height: size.height * 0.05,
                     child: Consumer<Authentication>(
-                        builder: (context, colorChange, _) {
+                        builder: (context, authAndColorChange, _) {
                       return ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            debugPrint('$authValues');
+
                             if (_formKey.currentState!.validate()) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text(translation.loading)),
                               );
                             }
-                            debugPrint('$authValues');
-                            colorChange.signIn(
+
+                            await authAndColorChange.signIn(
                                 authValues['email'], authValues['password']);
+
+                            authAndColorChange.statusCode == 200
+                                ? Navigator.of(context).pushNamedAndRemoveUntil(
+                                    '/', (route) => false)
+                                : ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(translation
+                                            .pleaseEnterValidInformation)),
+                                  );
                           },
                           child: Text(
                             translation.login,
@@ -183,7 +207,7 @@ class Login extends StatelessWidget {
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8))),
                             backgroundColor:
-                                MaterialStateProperty.all(_colors.orange),
+                                MaterialStateProperty.all(colors.orange),
                           ));
                     }),
                   ),

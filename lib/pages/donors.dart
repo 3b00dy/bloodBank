@@ -6,17 +6,20 @@ import 'package:bankblood/provider/volunteer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-class Volunteers extends StatelessWidget {
-  Volunteers({Key? key}) : super(key: key);
+import 'package:url_launcher/url_launcher.dart';
+
+class Donors extends StatelessWidget {
+  Donors({Key? key}) : super(key: key);
   final AppColors _colors = AppColors();
+
   @override
   Widget build(BuildContext context) {
-    var connection=Provider.of<ConnectionStatus>(context,listen: false);
-
+    var connection = Provider.of<ConnectionStatus>(context, listen: false);
+    var _colors = Provider.of<AppColors>(context);
     var translation = Translations.of(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Provider.of<AppColors>(context).white,
+      backgroundColor: _colors.white,
       body: RefreshIndicator(
         backgroundColor: _colors.orange,
         color: _colors.white,
@@ -33,12 +36,19 @@ class Volunteers extends StatelessWidget {
             SizedBox(
               height: size.height * 0.025,
             ),
-             Consumer<VolunteerProvider>(builder: (context, volunteer, _) {
-               if(connection.connection!='ConnectivityResult.none') {
+            Consumer<VolunteerProvider>(builder: (context, volunteer, _) {
+              if (connection.connection != 'ConnectivityResult.none') {
                 if (volunteer.loadingState == LoadingState.loading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
+                } else if (volunteer.defaultLength == 0) {
+                  return Center(
+                      child: Text(
+                    translation.noDonors,
+                    style: TextStyle(
+                        fontSize: size.width * 0.06, color: _colors.black),
+                  ));
                 } else {
                   return SizedBox(
                     height: size.height * 0.78,
@@ -97,11 +107,14 @@ class Volunteers extends StatelessWidget {
                     ),
                   );
                 }
-
-              }else {
-                 return ( Center(child: Text(translation.noInternet,style: TextStyle(fontSize: 25,color: _colors.orange),),));
-
-               }
+              } else {
+                return (Center(
+                  child: Text(
+                    translation.noInternet,
+                    style: TextStyle(fontSize: 25, color: _colors.orange),
+                  ),
+                ));
+              }
             }),
           ],
         ),
@@ -133,40 +146,41 @@ class Volunteers extends StatelessWidget {
                 SizedBox(
                     height: size.height * 0.14,
                     child: Row(children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                              '${Translations.of(context).address} ${hospitals.volList![index].volunteerAddress}'),
-                          Text(
-                              '${Translations.of(context).age}  ${hospitals.volList![index].volunteerAge}'),
-                          Text(
-                              '${Translations.of(context).phoneNumber}  ${hospitals.volList![index].volunteerPhoneNumber}'),
-                        ],
-                      ),
-                      Expanded(
+                      SizedBox(
+                        width: size.width * 0.45,
                         child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Container(
-                                  height: size.height * 0.06,
-                                  width: size.width * 0.13,
-                                  decoration: BoxDecoration(
-                                    color: _colors.pink,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                                Text(
-                                  '${hospitals.volList![index].volunteerBloodType}',
-                                  style: TextStyle(fontSize: size.width * 0.06),
-                                ),
-                              ],
-                            )
+                            Text(
+                                '${Translations.of(context).address}: ${hospitals.volList![index].volunteerAddress}'),
+                            Text(
+                                '${Translations.of(context).age}: ${hospitals.volList![index].volunteerAge}'),
+                            Text(
+                                '${Translations.of(context).phoneNumber}: ${hospitals.volList![index].volunteerPhoneNumber}'),
                           ],
                         ),
+                      ),
+                      Column(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                height: size.height * 0.06,
+                                width: size.width * 0.13,
+                                decoration: BoxDecoration(
+                                  color: _colors.pink,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              Text(
+                                '${hospitals.volList![index].volunteerBloodType}',
+                                style: TextStyle(fontSize: size.width * 0.06),
+                              ),
+                            ],
+                          )
+                        ],
                       )
                     ])),
                 Row(
@@ -177,8 +191,12 @@ class Volunteers extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
                           width: size.width * 0.36,
-                          child: buildElevatedButton(context, size,
-                              _colors.black, Translations.of(context).call)),
+                          child: buildCallElevatedButton(
+                              context,
+                              size,
+                              _colors.black,
+                              Translations.of(context).call,
+                              '${hospitals.volList![index].volunteerPhoneNumber}')),
                     )
                   ],
                 )
@@ -194,6 +212,33 @@ class Volunteers extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         Navigator.pop(context);
+      },
+      child: Text(
+        name,
+        style: TextStyle(fontSize: size.width * 0.05),
+      ),
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
+        backgroundColor: MaterialStateProperty.all(
+          color,
+        ),
+      ),
+    );
+  }
+
+  ElevatedButton buildCallElevatedButton(
+      BuildContext context, Size size, Color color, String name, number)
+
+  {
+    final Uri _url = Uri.parse('tel:$number');
+    void _launchUrl() async {
+      if (!await launchUrl(_url)) throw 'Could not launch $_url';
+    }
+
+    return ElevatedButton(
+      onPressed: () {
+        _launchUrl();
       },
       child: Text(
         name,

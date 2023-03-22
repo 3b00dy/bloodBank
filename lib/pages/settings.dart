@@ -1,6 +1,7 @@
 import 'package:bankblood/colors.dart';
 import 'package:bankblood/i18n/translations.dart';
 import 'package:bankblood/main.dart';
+import 'package:bankblood/provider/authentication.dart';
 import 'package:bankblood/provider/language_viewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -18,24 +19,10 @@ class Settings extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(children: [
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
-            child: Row(
-              children: [
-                Text(
-                  'User Name',
-                  style: TextStyle(color: provider.black, fontSize: 25),
-                ),
-                Spacer(),
-                CircleAvatar(
-                  backgroundColor: provider.orange,
-                ),
-              ],
-            ),
-          ),
+
           const SizedBox(
             height: 20,
           ),
@@ -66,6 +53,7 @@ class Settings extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: (){Navigator.of(context).pushNamed('accountInformation');},
             title: Text(
               translation.accountInformation,
               style: TextStyle(fontSize: 20, color: provider.black),
@@ -103,3 +91,23 @@ class Settings extends StatelessWidget {
     );
   }
 }
+/*Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
+            child: Row(
+              children: [
+                Consumer<Authentication>(
+                  builder: (context,profile,_) {
+                    return Text(
+                      '${profile.profile.firstName} ${profile.profile.lastName}',
+                      style: TextStyle(color: provider.black, fontSize: 25),
+                    );
+                  }
+                ),
+                const Spacer(),
+                CircleAvatar(
+                  backgroundColor: provider.orange,
+                ),
+              ],
+            ),
+          ),
+          */

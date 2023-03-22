@@ -19,7 +19,8 @@ class Register extends StatelessWidget {
     'birthdate': '',
     'address': '',
     'gender': '',
-    'bloodtype': ''
+    'bloodType': '',
+    'phoneNumber': 0
   };
   final _formKey = GlobalKey<FormState>();
 
@@ -40,7 +41,7 @@ class Register extends StatelessWidget {
 
   Scaffold buildScaffold(AppColors colors, Size size, BuildContext context) {
     var translation = Translations.of(context);
-    List genderList=[translation.male,translation.female];
+    List genderList = [translation.male, translation.female];
     return Scaffold(
       backgroundColor: colors.white,
       body: SingleChildScrollView(
@@ -73,15 +74,17 @@ class Register extends StatelessWidget {
                 children: [
                   Text(
                     translation.haveAccount,
-                    style: TextStyle(fontSize: size.width * 0.05),
+                    style: TextStyle(
+                        fontSize: size.width * 0.05, color: colors.black),
                   ),
                 ],
               ),
               Row(
                 children: [
                   Text(
-                    "${translation.loginHere} ",
-                    style: TextStyle(fontSize: size.width * 0.05),
+                    "${translation.youCan} ",
+                    style: TextStyle(
+                        fontSize: size.width * 0.05, color: colors.black),
                   ),
                   TextButton(
                     onPressed: () {
@@ -104,54 +107,73 @@ class Register extends StatelessWidget {
                   FlutterRemix.mail_line, 'email', context),
               buildTextField(translation.address, translation.enterAddress,
                   FlutterRemix.user_location_line, 'address', context),
+              buildTextField(
+                  translation.phoneNumber,
+                  translation.enterPhoneNumber,
+                  FlutterRemix.phone_line,
+                  'phoneNumber',
+                  context),
               Row(
                 children: [
                   SizedBox(
                     width: size.width * 0.05,
                   ),
-                  const Icon(FlutterRemix.genderless_line),
+                  Icon(
+                    FlutterRemix.genderless_line,
+                    color: colors.black,
+                  ),
                   Container(
                     height: size.height * 0.07,
                     width: size.width * 0.75,
                     margin: const EdgeInsets.all(20),
                     child: Consumer<Authentication>(
                         builder: (context, authProvider, _) {
-                          return DropdownButtonHideUnderline(
-                            child: GFDropdown(
-                              hint: Text(translation.chooseYourGender),
-                              padding: const EdgeInsets.all(15),
-                              borderRadius: BorderRadius.circular(10),
-                              underline: const Text('thickness: 5,'),
-                              border:
-                              const BorderSide(color: Colors.black, width: 1),
-                              dropdownButtonColor: colors.white,
-                              value: authProvider.genderValue,
-                              onChanged: (newValue) {
-                                authProvider.setGenderValue(newValue);
-                                authValues['gender'] = newValue;
-                              },
-                              items:genderList
-                                  .map((value) => DropdownMenuItem(
-                                value: value,
-                                child: Text(value),
-                              ))
-                                  .toList(),
-                            ),
-                          );
-                        }),
+                      return DropdownButtonHideUnderline(
+                        child: GFDropdown(
+                          hint: Text(
+                            translation.chooseYourGender,
+                            style: TextStyle(color: colors.black),
+                          ),
+                          padding: const EdgeInsets.all(15),
+                          borderRadius: BorderRadius.circular(10),
+                          underline: const Text('thickness: 5,'),
+                          border: BorderSide(color: colors.black, width: 1),
+                          dropdownButtonColor: colors.white,
+                          value: authProvider.genderValue,
+                          onChanged: (newValue) {
+                            authProvider.setGenderValue(newValue);
+                            authValues['gender'] = newValue;
+                          },
+                          items: genderList
+                              .map((value) => DropdownMenuItem(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(color: colors.greys),
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
+                      );
+                    }),
                   ),
                 ],
               ),
               Divider(
                 indent: 10,
-              endIndent: 10,
-              thickness: 0.5,
+                endIndent: 10,
+                thickness: 0.5,
                 color: colors.black,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: DateTimeFormField(
+                  dateTextStyle: TextStyle(color: colors.black),
                   decoration: InputDecoration(
+
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: colors.grey, width: 2),
+                          borderRadius: BorderRadius.circular(10)),
                       hintStyle: TextStyle(color: colors.black),
                       errorStyle: TextStyle(color: colors.orange),
                       prefixIcon: Icon(
@@ -176,29 +198,40 @@ class Register extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Consumer<Authentication>(builder: (context, obscure, _) {
                   return TextField(
-                    onChanged: (value){
-                      authValues['password1']=value;
-                      authValues['password2']=value;
+                    style: TextStyle(color: colors.black),
+                    onChanged: (value) {
+                      authValues['password1'] = value;
+                      authValues['password2'] = value;
                     },
                     obscureText: obscure.isObscure,
                     decoration: InputDecoration(
                         labelText: translation.password,
                         hintText: translation.passwordHint,
-                        labelStyle: const TextStyle(
-                            color: Colors.black,
+                        hintStyle: TextStyle(color: colors.black),
+                        labelStyle: TextStyle(
+                            color: colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.w400),
                         suffixIcon: IconButton(
                           onPressed: () {
                             obscure.eye();
                           },
-                          icon: Icon(obscure.isObscure?FlutterRemix.eye_close_line:FlutterRemix.eye_line),
+                          icon: Icon(
+                            obscure.isObscure
+                                ? FlutterRemix.eye_close_line
+                                : FlutterRemix.eye_line,
+                            color: colors.black,
+                          ),
                         ),
                         prefixIcon: Icon(
                           FlutterRemix.key_line,
                           color: colors.black,
                           size: 25,
                         ),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: colors.grey, width: 2),
+                            borderRadius: BorderRadius.circular(10)),
                         focusedBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: colors.black, width: 1.5),
@@ -211,7 +244,7 @@ class Register extends StatelessWidget {
                   SizedBox(
                     width: size.width * 0.05,
                   ),
-                  const Icon(FlutterRemix.test_tube_line),
+                  Icon(FlutterRemix.test_tube_line, color: colors.black),
                   Container(
                     height: size.height * 0.07,
                     width: size.width * 0.75,
@@ -220,22 +253,25 @@ class Register extends StatelessWidget {
                         builder: (context, authProvider, _) {
                       return DropdownButtonHideUnderline(
                         child: GFDropdown(
-                          hint: Text(translation.chooseYourBloodType),
+                          hint: Text(translation.chooseYourBloodType,
+                              style: TextStyle(color: colors.black)),
                           padding: const EdgeInsets.all(15),
                           borderRadius: BorderRadius.circular(10),
                           underline: const Text('thickness: 5,'),
-                          border:
-                              const BorderSide(color: Colors.black, width: 1),
+                          border: BorderSide(color: colors.black, width: 1),
                           dropdownButtonColor: colors.white,
                           value: authProvider.dropdownValue,
                           onChanged: (newValue) {
                             authProvider.setValue(newValue);
-                            authValues['bloodtype'] = newValue;
+                            authValues['bloodType'] = newValue;
                           },
                           items: authProvider.items
                               .map((value) => DropdownMenuItem(
                                     value: value,
-                                    child: Text(value),
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(color: colors.deepOrange),
+                                    ),
                                   ))
                               .toList(),
                         ),
@@ -250,13 +286,20 @@ class Register extends StatelessWidget {
                 child: Consumer<Authentication>(
                     builder: (context, colorChange, _) {
                   return ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(translation.loading)),
                           );
                         }
                         debugPrint('$authValues');
+                        await colorChange.register(authValues);
+                        colorChange.statusCode == 201
+                            ? Navigator.of(context)
+                                .pushNamedAndRemoveUntil('/', (route) => false)
+                            : ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(translation.error)),
+                              );
                       },
                       child: Text(
                         translation.register,
@@ -286,6 +329,7 @@ class Register extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        style: TextStyle(color: colors.black),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return translation.thisFieldIsRequired;
@@ -298,18 +342,20 @@ class Register extends StatelessWidget {
         decoration: InputDecoration(
             labelText: label,
             hintText: hint,
-            labelStyle: const TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w400),
+            labelStyle: TextStyle(
+                color: colors.black, fontSize: 18, fontWeight: FontWeight.w400),
             prefixIcon: Icon(
               icon,
-              color: Colors.black,
+              color: colors.black,
               size: 25,
             ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: colors.grey, width: 2),
+                borderRadius: BorderRadius.circular(10)),
             focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: colors.black, width: 1.5),
                 borderRadius: BorderRadius.circular(10))),
       ),
     );
   }
-
 }

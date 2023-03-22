@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bankblood/models/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,6 +67,9 @@ class Authentication with ChangeNotifier {
     notifyListeners();
   }
 
+  late String token;
+  late int statusCode;
+
   signIn(String email, String password) async {
     var url = Uri.parse('$baseUrl/api/account/signin');
 
@@ -79,7 +83,7 @@ class Authentication with ChangeNotifier {
       debugPrint('response code.. $statusCode');
 
       var responseBody = jsonDecode(res.body)['account'];
-      var tokenResponse = jsonDecode(res.body)['token']['access'];
+      token = jsonDecode(res.body)['token']['access'];
 
       debugPrint('response Type.. ${responseBody.runtimeType}');
       debugPrint('response body.. $responseBody');
@@ -88,16 +92,15 @@ class Authentication with ChangeNotifier {
       SharedPreferences tokenValueSet = await SharedPreferences.getInstance();
       tokenValueSet.setString('token', jsonDecode(res.body)['token']['access']);
 
-      debugPrint('response token.. $tokenResponse');
+      debugPrint('response token.. $token');
 
       // userId = responseBody['id'];
+      getProfile();
     } catch (e) {
       print('error...${e}');
     }
     notifyListeners();
   }
-
-  late int statusCode;
 
   register(authValues) async {
     http.Response resposne;
@@ -115,6 +118,7 @@ class Authentication with ChangeNotifier {
             "bloodType": authValues['bloodType'],
             "birthdate": authValues['birthdate'],
             "gender": authValues['gender'],
+            "phoneNumber": authValues['phoneNumber'],
           }));
 
       debugPrint("ValuesEntry ${authValues['birthdate']}");
@@ -124,11 +128,16 @@ class Authentication with ChangeNotifier {
 
       var tokenResponse = jsonDecode(resposne.body)['token']['access'];
 
+
       SharedPreferences tokenValueSet = await SharedPreferences.getInstance();
       tokenValueSet.setString('token', tokenResponse);
 
+      token=tokenValueSet.getString('token')!;
+
       debugPrint("status code ${resposne.statusCode}");
       debugPrint("status code ${resposne.body}");
+      getProfile();
+      notifyListeners();
     } catch (error) {
       print(error.toString());
     }
@@ -138,5 +147,51 @@ class Authentication with ChangeNotifier {
   logout() async {
     SharedPreferences tokenValueSet = await SharedPreferences.getInstance();
     tokenValueSet.setString('token', 'null');
+    tokenValueSet.setString('first_name', ' ');
+    tokenValueSet.setString('last_name', ' ');
+    tokenValueSet.setString('gender', ' ');
+    tokenValueSet.setString('bloodType', ' ');
+    tokenValueSet.setString('address', ' ');
+    tokenValueSet.setString('phoneNumber', ' ');
+    tokenValueSet.setString('email', ' ');
+    tokenValueSet.setString('birthdate', ' ');
+
+    token = 'null';
+    notifyListeners();
+  }
+
+
+
+  Profile profile = Profile();
+
+  getProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    http.Response response;
+    try {
+      var url = Uri.parse('$baseUrl/api/account');
+
+      String? token = prefs.getString('token');
+      response = await http.get(url, headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      });
+      var responseBody = json.decode(response.body);
+      profile = Profile.fromJson(responseBody);
+      debugPrint('Profile Api Response== ${profile.email}');
+      debugPrint('Profile Api Response== ${profile.email}');
+      prefs.setString('first_name', '${profile.firstName}');
+      prefs.setString('last_name', '${profile.lastName}');
+      prefs.setString('gender', '${profile.gender}');
+      prefs.setString('bloodType', '${profile.bloodType}');
+      prefs.setString('address', '${profile.address}');
+      prefs.setString('phoneNumber', '${profile.phoneNumber}');
+      prefs.setString('email', '${profile.email}');
+      prefs.setString('birthdate', '${profile.birthdate}');
+
+      notifyListeners();
+    } catch (error) {
+      rethrow;
+    }
+    notifyListeners();
   }
 }

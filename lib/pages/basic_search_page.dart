@@ -142,20 +142,20 @@ class BasicSearch extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Consumer<ChangeButtonColor>(builder: (context, provider, _) {
         return InkWell(
+
           onTap: () {
             provider.selection(bloodType);
           },
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Container(
+              AnimatedContainer(
+                duration: Duration(milliseconds: 200),
                 height: size.height * 0.1,
                 width: size.width * 0.2,
                 decoration: BoxDecoration(
-                  color: provider.selected == bloodType
-                      ? Provider.of<AppColors>(context).orange
-                      : Provider.of<AppColors>(context).grey,
-                  borderRadius: BorderRadius.circular(10),
+                  color: provider.selected == bloodType? Provider.of<AppColors>(context).orange: Provider.of<AppColors>(context).grey,
+                  borderRadius: provider.selected == bloodType? BorderRadius.circular(20):BorderRadius.circular(10),
                 ),
               ),
               Text(
@@ -216,6 +216,44 @@ class BasicSearch extends StatelessWidget {
             },
             selectedColor: Provider.of<AppColors>(ctx).orange);
       }
+    );
+  }
+
+  Widget customRadioButton(Size size, String bloodType, context, bloodTypeText) {
+
+    var provider = Provider.of<ChangeButtonColor>(context, listen: false);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Consumer<ChangeButtonColor>(builder: (context, provider, _) {
+        return InkWell(
+
+          onTap: () {
+            provider.selection(bloodType);
+          },
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 200),
+                height: size.height * 0.1,
+                width: size.width * 0.2,
+                decoration: BoxDecoration(
+                  color: provider.selected == bloodType? Provider.of<AppColors>(context).orange: Provider.of<AppColors>(context).grey,
+                  borderRadius: provider.selected == bloodType? BorderRadius.circular(20):BorderRadius.circular(10),
+                ),
+              ),
+              Text(
+                bloodTypeText,
+                style: TextStyle(
+                    fontSize: size.width * 0.09,
+                    color: provider.selected == bloodType
+                        ? Provider.of<AppColors>(context).white
+                        : Provider.of<AppColors>(context).black),
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

@@ -10,22 +10,24 @@ class ChangeButtonColor with ChangeNotifier {
   late LoadingState loadingState;
 
   late String location;
+  int defaultLength = 0;
+
 
   String selected = '';
+
   bool placeSelected = false;
   bool typeSelected = false;
 
   place() {
     placeSelected = true;
-    debugPrint('type $placeSelected');
-
     notifyListeners();
   }
 
   selection(bloodType) {
     selected = bloodType;
+
     typeSelected = true;
-    debugPrint('type $bloodType');
+
     notifyListeners();
   }
 
@@ -37,7 +39,6 @@ class ChangeButtonColor with ChangeNotifier {
   placeByType() {
     placeSelectedByType = true;
     debugPrint('type $placeSelectedByType');
-
     notifyListeners();
   }
 
@@ -56,7 +57,6 @@ class ChangeButtonColor with ChangeNotifier {
   fetchBanks() async {
     loadingState = LoadingState.loading;
     http.Response response;
-
     try {
       var url = Uri.parse('$baseUrl/api/banks/$location/$selected');
       response = await http.get(url);
@@ -66,26 +66,24 @@ class ChangeButtonColor with ChangeNotifier {
           .map<HospitalBanks>(
               (_modelJson) => HospitalBanks.fromJson(_modelJson))
           .toList();
-
-      debugPrint('hospitals..... $hospitalsList');
-
+      defaultLength = hospitalsList!.length;
       loadingState = LoadingState.finished;
       notifyListeners();
       return hospitalsList;
     } catch (error) {
-      // loadingState = LoadingState.idle;
-      print('errorr ${error.toString()}');
       notifyListeners();
       rethrow;
     }
   }
+  // print('error ${error.toString()}');
 
   fetchBanksByType() async {
     loadingState = LoadingState.loading;
 
     http.Response response;
     try {
-      var url = Uri.parse('$baseUrl/api/banksOnType/$locationByType/$selectedByType');
+      var url =
+          Uri.parse('$baseUrl/api/banksOnType/$locationByType/$selectedByType');
       response = await http.get(url);
       var jsonModels = json.decode(response.body);
       debugPrint('hospitals....$jsonModels');

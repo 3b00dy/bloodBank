@@ -1,6 +1,7 @@
 import 'package:bankblood/pages/basic_search_page.dart';
 import 'package:bankblood/pages/settings.dart';
-import 'package:bankblood/pages/volunteers.dart';
+import 'package:bankblood/pages/donors.dart';
+import 'package:bankblood/provider/authentication.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    print("building");
     var translation = Translations.of(context);
     final List<Widget> _title = <Widget>[
       Text(translation.home),
@@ -56,6 +58,7 @@ class _HomeState extends State<Home> {
         centerTitle: true,
         title: _title[_currentIndex],
         elevation: 0,
+
       ),
       body: SizedBox.expand(
         child: PageView(
@@ -65,7 +68,7 @@ class _HomeState extends State<Home> {
           },
           children: <Widget>[
             BasicSearch(),
-            Volunteers(),
+            Donors(),
             Donate(),
             const Settings()
           ],

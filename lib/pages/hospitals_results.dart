@@ -8,6 +8,7 @@ import 'package:bankblood/provider/search_type_color.dart';
 import 'package:bankblood/provider/volunteer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Hospitals extends StatelessWidget {
   Hospitals({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class Hospitals extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var connection=Provider.of<ConnectionStatus>(context,listen: false);
+    var connection = Provider.of<ConnectionStatus>(context, listen: false);
     var translation = Translations.of(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -32,10 +33,16 @@ class Hospitals extends StatelessWidget {
             height: size.height * 0.035,
           ),
           Consumer<ChangeButtonColor>(builder: (context, hospitals, _) {
-
-            if(connection.connection!='ConnectivityResult.none') {
+            if (connection.connection != 'ConnectivityResult.none') {
               if (hospitals.loadingState == LoadingState.loading) {
                 return const Center(child: CircularProgressIndicator());
+              } else if (hospitals.defaultLength == 0) {
+                return Center(
+                    child: Text(
+                  translation.notFound,
+                  style: TextStyle(
+                      fontSize: size.width * 0.06, color: _colors.black),
+                ));
               } else {
                 return SizedBox(
                   height: size.height * 0.85,
@@ -93,9 +100,13 @@ class Hospitals extends StatelessWidget {
                   ),
                 );
               }
-            }else {
-              return ( Center(child: Text(translation.noInternet,style: TextStyle(fontSize: 25,color: _colors.orange),),));
-
+            } else {
+              return (Center(
+                child: Text(
+                  translation.noInternet,
+                  style: TextStyle(fontSize: 25, color: _colors.orange),
+                ),
+              ));
             }
           }),
         ],
@@ -147,30 +158,6 @@ class Hospitals extends StatelessWidget {
                         ],
                       ),
 
-                      // Expanded(
-                      //   child: Column(
-                      //     // mainAxisAlignment: MainAxisAlignment.center,
-                      //     children: [
-                      //       Stack(
-                      //         alignment: Alignment.center,
-                      //         children: [
-                      //           Container(
-                      //             height: size.height * 0.06,
-                      //             width: size.width * 0.13,
-                      //             decoration: BoxDecoration(
-                      //               color: _colors.pink,
-                      //               borderRadius: BorderRadius.circular(8),
-                      //             ),
-                      //           ),
-                      //           Text(
-                      //             '${hospitals.hospitalsList![index].bloodType}',
-                      //             style: TextStyle(fontSize: size.width * 0.06),
-                      //           ),
-                      //         ],
-                      //       )
-                      //     ],
-                      //   ),
-                      // )
                     ])),
                 Row(
                   children: [
@@ -180,8 +167,8 @@ class Hospitals extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
                           width: size.width * 0.36,
-                          child: buildElevatedButton(
-                              context, size, _colors.black, translation.call)),
+                          child: buildCallElevatedButton(
+                              context, size, _colors.black, translation.call,hospitals.hospitalsList![index].hospitalNumber)),
                     )
                   ],
                 )
@@ -196,7 +183,30 @@ class Hospitals extends StatelessWidget {
       BuildContext context, Size size, Color color, String name) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, 'hospitals');
+        Navigator.pop(context);
+      },
+      child: Text(
+        name,
+        style: TextStyle(fontSize: size.width * 0.05),
+      ),
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
+        backgroundColor: MaterialStateProperty.all(
+          color,
+        ),
+      ),
+    );
+  }
+  ElevatedButton buildCallElevatedButton(
+      BuildContext context, Size size, Color color, String name,number) {
+    final Uri _url = Uri.parse('tel:$number');
+    void _launchUrl() async {
+      if (!await launchUrl(_url)) throw 'Could not launch $_url';
+    }
+    return ElevatedButton(
+      onPressed: () {
+        _launchUrl();
       },
       child: Text(
         name,

@@ -35,7 +35,7 @@ class Translations {
       'donor_address': 'Donor Address',
       'phone_number': 'Phone Number',
       'Donor_blood_type': 'Donor Blood Type',
-      'Sign_as_volunteer': 'Sign as a volunteer',
+      'Sign_as_volunteer': 'Sign as a donor',
       'hospital_name': 'Hospital Name',
       'available_bottles': 'Available Bottles',
       'result': 'Results',
@@ -87,12 +87,15 @@ class Translations {
       'female': 'Female',
       'select_your_gender': 'Select your gender',
       'register_here': 'Register here!',
-      'login':'Login',
+      'login': 'Login',
       'dont_have_account': 'If you don\'t have an account',
-
-
-
-
+      'please_enter_valid_information': 'Please enter valid information!',
+      'please_login_first': 'Please login  first!',
+      'enter_phone_number': 'Enter phone number',
+      'error': 'Error, check your data and make sure you are online',
+      'are_you_sure': 'Are you sure?',
+      'no_donors': 'We couldn\'t find any donor',
+      'not_found': 'Not found',
 
       'cancel_order': 'Cancel Order',
       'back': 'Back',
@@ -207,15 +210,28 @@ class Translations {
       'female': 'انثى',
       'select_your_gender': 'اختر الجنس',
       'register_here': 'التسجيل',
-      'login':'تسجيل الدخول',
+      'login': 'تسجيل الدخول',
       'dont_have_account': 'اذا لم يكن لديك حساب',
       'you_can': 'تستطيع',
       'have_account': 'لديك حساب بالفعل؟',
       'login_here': 'تسجيل الدخول!',
+      'please_enter_valid_information': 'الرجاء ادخال معلومات صحيحة!',
+      'please_login_first': 'الرجاء تسجيل الدخول اولًا',
+      'enter_phone_number': 'ادخل رقم الهاتف',
+      'error': 'خطأ, تأكد من ادخال معلومات صحيحة وانك متصل بالأنترنت!',
+      'are_you_sure': 'هل انت متأكد؟',
+      'no_donors': 'لم نستطع ايجاد اي متبرع!',
+      'not_found': 'غير متاح'
     },
   };
 
   String get switchLanguage => _vocabularies?['switch_language'] as String;
+
+  String get error => _vocabularies?['error'] as String;
+
+  String get noDonors => _vocabularies?['no_donors'] as String;
+
+  String get notFound => _vocabularies?['not_found'] as String;
 
   String get choose => _vocabularies?['choose'] as String;
 
@@ -233,6 +249,8 @@ class Translations {
   String get address => _vocabularies?['address'] as String;
 
   String get age => _vocabularies?['age'] as String;
+
+  String get enterPhoneNumber => _vocabularies?['enter_phone_number'] as String;
 
   String get donate => _vocabularies?['donate'] as String;
 
@@ -254,7 +272,7 @@ class Translations {
     return _vocabularies?['Donor_blood_type'] as String;
   }
 
-  String get signAsVolunteer {
+  String get signAsDonor {
     return _vocabularies?['Sign_as_volunteer'] as String;
   }
 
@@ -361,6 +379,10 @@ class Translations {
 
   String get verify {
     return _vocabularies?['verify'] as String;
+  }
+
+  String get areYouSure {
+    return _vocabularies?['are_you_sure'] as String;
   }
 
   String get proceed {
@@ -475,13 +497,27 @@ class Translations {
     return _vocabularies?['female'] as String;
   }
 
+  String get pleaseEnterValidInformation {
+    return _vocabularies?['please_enter_valid_information'] as String;
+  }
+
+  String get pleaseLoginFirst {
+    return _vocabularies?['please_login_first'] as String;
+  }
+
   String get chooseYourGender {
     return _vocabularies?['select_your_gender'] as String;
-  }  String get dontHaveAccount {
+  }
+
+  String get dontHaveAccount {
     return _vocabularies?['dont_have_account'] as String;
-  }String get registerHere {
+  }
+
+  String get registerHere {
     return _vocabularies?['register_here'] as String;
-  }String get login {
+  }
+
+  String get login {
     return _vocabularies?['login'] as String;
   }
 }
